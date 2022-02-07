@@ -1,11 +1,4 @@
 # DEVELOPMENT-TOOLS-GET-A-PLUS
-## project director
-`
-- Assets
-  - Image
-- FrontEnd
-- BackEnd
-`
 
 ## Commit Template
   
