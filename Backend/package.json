@@ -1,0 +1,18 @@
+{
+  "name": "wannaplay-server",
+  "version": "1.0.0",
+  "description": "this package for project dev-tools ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "nipas wongnitipat",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2",
+    "socket.io": "^4.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
