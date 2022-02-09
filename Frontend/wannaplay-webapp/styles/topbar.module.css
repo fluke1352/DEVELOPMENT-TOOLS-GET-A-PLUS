@@ -1,0 +1,18 @@
+.topbar{
+    height: 8vh;
+    background-color: #2D333B;
+    /* color: #7EE0FF; */
+    text-align: center;
+  }
+
+  .blueicon{
+    stroke: #7EE0FF;
+    fill:  #7EE0FF;
+    /* margin-right: 2vw; */
+  }
+
+  .whiteicon{
+    fill: #ffffff;
+    stroke:#ffffff;
+    /* margin-left: 2vw; */
+  }
