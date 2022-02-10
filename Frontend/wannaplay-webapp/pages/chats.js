@@ -5,6 +5,7 @@ import TextField from '@mui/material/TextField';
 
 export default function Chats() {
 
+
   const [message, setMessage] = React.useState();
 
   const [messages, setMessages] = React.useState(
@@ -14,6 +15,12 @@ export default function Chats() {
   var handleChange = function (e) {
     setMessage(e.target.value);
   };
+
+  var handleKeyPress = (event) => {
+    if(event.key === 'Enter'){
+      alert(message), setMessage("")
+    }
+  }
 
   return (
     <Box
@@ -69,7 +76,7 @@ export default function Chats() {
             input: { color: '#ffffff' },
           }}
           id="input-with-icon-textfield"
-
+          onKeyPress={handleKeyPress}
           InputProps={{
             endAdornment: (
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
