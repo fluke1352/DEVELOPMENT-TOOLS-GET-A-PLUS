@@ -24,6 +24,7 @@ export default function Topbar() {
                 width: '100%',
             }}
         >
+            <Box sx={{color: '#FFFFFF',  left: '2%', position: 'absolute'}}>username</Box>
 
             <Tabs value={value} onChange={handleChange}
                 sx={{
@@ -33,7 +34,6 @@ export default function Topbar() {
                     borderRadius: 0,
 
                 }}>
-
                 <Tab icon={<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M32.764 16.1687L21.0973 5.96035C20.469 5.41052 19.5307 5.41052 18.9023 5.96035L7.23566 16.1687C6.87397 16.4852 6.6665 16.9424 6.6665 17.423V31.6667C6.6665 32.5872 7.4127 33.3334 8.33317 33.3334H31.6665C32.587 33.3334 33.3332 32.5872 33.3332 31.6667V17.423C33.3332 16.9424 33.1257 16.4852 32.764 16.1687Z"
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
