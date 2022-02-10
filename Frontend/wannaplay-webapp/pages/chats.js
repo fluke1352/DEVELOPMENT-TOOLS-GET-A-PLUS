@@ -1,7 +1,7 @@
 import React from 'react'
 
-export default function test() {
+export default function Chats() {
   return (
-    <div>test</div>
+    <div>Chats test</div>
   )
 }
