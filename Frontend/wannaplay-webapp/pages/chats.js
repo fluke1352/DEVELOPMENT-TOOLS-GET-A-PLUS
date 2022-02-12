@@ -77,7 +77,7 @@ export default function Chats() {
               return (
                 <Box sx={{ mb: 5, flexDirection: 'row', display: 'flex' }} key={index}>
                   <Box sx={{ mr: 5 }}>
-                    {message.timestamp}
+                    {message.timeStamp}
                   </Box>
 
                   <Box sx={{
