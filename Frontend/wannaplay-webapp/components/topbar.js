@@ -8,10 +8,12 @@ import { useRouter } from "next/router";
 export default function Topbar() {
     const router = useRouter();
     const [value, setValue] = React.useState(0);
+    const [socketIO, setsocketIO] = React.useState('');
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+
 
     return (
         <Box
@@ -24,9 +26,9 @@ export default function Topbar() {
                 width: '100%',
             }}
         >
-            <Box sx={{color: '#FFFFFF',  left: '2%', position: 'absolute'}}>username</Box>
+            <Box sx={{ color: '#FFFFFF', left: '2%', position: 'absolute' }}>username</Box>
 
-            <Tabs value={value} onChange={handleChange}
+            <Tabs value={router.pathname == "/chats" ? 1 : 0} onChange={handleChange}
                 sx={{
                     flex: 1,
                     p: 1,
