@@ -5,15 +5,25 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    }
   },
   "author": "nipas wongnitipat",
   "license": "ISC",
   "dependencies": {
+    "@babel/core": "^7.17.2",
     "express": "^4.17.2",
-    "socket.io": "^4.4.1"
+    "socket.io": "^4.4.1",
+    "socket.io-client": "^4.4.1"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.16.11",
+    "babel-jest": "^27.5.1",
+    "jest": "^27.5.1",
     "nodemon": "^2.0.15"
   }
 }
