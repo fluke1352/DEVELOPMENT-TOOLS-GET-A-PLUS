@@ -16,19 +16,24 @@ class WorldChatSocket {
     // send notify message when client join world chat
     joinRoom (client) {
         this.socket.join('world-chat');
-        console.log(`${ this.socket.id } join world chat`);
-        this.io.in('world-chat').emit('has-join-message', { message : `${ client.username } join world chat` });
+        console.log(`${ client.username } join world chat`);
+        this.io.in('world-chat').emit('has-join-message', { message : `${ client.username } join world chat`, timeStamp : client.timeStamp });
     }
 
     // send message to everyone in world chat when client send message
     messageHandle (client) {
-        this.io.in('world-chat').emit('client-boardcast', { message : client.message , username : client.username});
+        if (client.message === null || client.timeStamp === null) {
+            this.io.in('world-chat').emit('client-boardcast', null);
+        }
+        else {
+            this.io.in('world-chat').emit('client-boardcast', { username : client.username, message : client.message, timeStamp : client.timeStamp});
+        }
     }
 }
 
 // for build Class
 const buildChatSocketClass = (io) => {
-    io.of('/world_chat').on('connection', (socket) => new WorldChatSocket(io.of('/world_chat'), socket));
+        io.of('/world_chat').on('connection', (socket) => new WorldChatSocket(io.of('/world_chat'), socket));
 }
 
 export default buildChatSocketClass;
