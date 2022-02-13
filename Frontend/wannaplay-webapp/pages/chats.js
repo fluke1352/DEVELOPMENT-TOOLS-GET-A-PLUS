@@ -14,7 +14,7 @@ export default function Chats() {
   const [socketIO, setsocketIO] = React.useState('');
 
   useEffect(function socketConnect() {
-    const socket = io('http://localhost:8080/world_chat');
+    const socket = io('https://wannaplay-world-chat.herokuapp.com/world_chat');
     setsocketIO(socket);
     return () => socket.close();
   }, [setsocketIO]);
