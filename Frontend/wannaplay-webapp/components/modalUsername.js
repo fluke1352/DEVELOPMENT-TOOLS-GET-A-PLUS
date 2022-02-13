@@ -9,8 +9,8 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
 function modalUsername() {
-  const [modal_is_open, setModal_is_open] = useState(true);
-  const [userName, setUserName] = useState("");
+  const [modal_is_open, setModal_is_open] = React.useState(true);
+  const [userName, setUserName] = React.useState("");
 
   //Modal Style
   const styleModal = {
