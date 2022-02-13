@@ -1,5 +1,5 @@
 class WorldChatSocket {
-
+    
     constructor (io, socket) {
         this.io = io;
         this.socket = socket;
@@ -17,16 +17,17 @@ class WorldChatSocket {
     joinRoom (client) {
         this.socket.join('world-chat');
         console.log(`${ client.username } join world chat`);
-        this.io.in('world-chat').emit('has-join-message', { message : `${ client.username } join world chat`, timeStamp : client.timeStamp });
+        this.io.in('world-chat').emit('has-join-message', { socketId : this.socket.id, message : `${ client.username } join world chat`, time : client.time });
     }
 
     // send message to everyone in world chat when client send message
     messageHandle (client) {
-        if (client.message === null || client.timeStamp === null) {
+        if (client.message === null || client.time === null) {
+            console.log("Client Send null value")
             this.io.in('world-chat').emit('client-boardcast', null);
         }
         else {
-            this.io.in('world-chat').emit('client-boardcast', { socket : this.socket.id ,username : client.username, message : client.message, timeStamp : client.timeStamp });
+            this.io.in('world-chat').emit('client-boardcast', { socketId : this.socket.id, username : client.username, message : client.message, time : client.time});
         }
     }
 }

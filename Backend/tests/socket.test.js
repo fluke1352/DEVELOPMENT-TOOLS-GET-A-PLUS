@@ -3,12 +3,15 @@ import { Server } from "socket.io";
 import { createServer } from "http";
 import { io } from 'socket.io-client';
 import buildChatSocketClass from "../utils/WebSocketClass.js";
+import express from "express";
+import socketOption from '../constants/socketServerOptions.js';
 
-let httpServer, clientSocket, serverSocket, ios;
+let httpServer, clientSocket, serverSocket
 
 beforeAll((done) => {
-    httpServer = createServer();
-    ios = new Server(httpServer);
+    const server = express();
+    httpServer = createServer(server);
+    const ios = new Server(httpServer, socketOption);
     serverSocket = buildChatSocketClass(ios);
     httpServer.listen(8080);
     done();
@@ -37,7 +40,6 @@ describe('Join World Chat Test', () => {
             try {
                 expect(data.message).toEqual(`takai join world chat`);
                 done();
-
             }
             catch (err) {
                 done(err);
@@ -50,10 +52,11 @@ describe('Join World Chat Test', () => {
 describe('Client Send Message Test', () => {
 
     test('client_send_message', (done) => {
-        clientSocket.emit('client-send', { username : "takai",  message : "test text", timeStamp : "12.30" });
+        clientSocket.emit('client-send', { socketId : clientSocket.id, username : "takai", message : "Hello World", time : "12:30PM"});
         clientSocket.on('client-boardcast', (data) => {
+            console.log(data)
             try {
-                expect(data).toEqual({ username : "takai",  message : "test text", timeStamp : "12.30" });
+                expect(data).toEqual( { socketId : clientSocket.id, username : "takai", message : "Hello World", time : "12:30PM"} );
                 done();
             }
             catch(err) {
@@ -76,3 +79,4 @@ describe('Client Send Message Test', () => {
     });
 
 });
+
