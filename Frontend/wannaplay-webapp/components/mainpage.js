@@ -83,12 +83,10 @@ export default function Home() {
     setInputGameName(event.target.value);
   };
 
-  //Get user name from store of Redux
-  const getUsrname = useSelector((state) => state.usrname.username);
 
   useEffect(() => {
     getGames();
-  }, [inputGameName, getUsrname]);
+  }, [inputGameName]);
 
   return (
     <Container maxWidth="lg" sx={{ my: "50px" }}>
@@ -96,7 +94,6 @@ export default function Home() {
       {/* Modal */}
       <ModalUsername />
       {/* USER NAME CHECK */}
-      <h1>{getUsrname}</h1>
       {/* Search bar*/}
       <from>
         <Box display="flex" flexDirection="row" justifyContent="center">

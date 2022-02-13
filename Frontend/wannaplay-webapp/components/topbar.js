@@ -4,6 +4,7 @@ import * as React from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 
 export default function Topbar() {
     const router = useRouter();
@@ -14,6 +15,7 @@ export default function Topbar() {
         setValue(newValue);
     };
 
+    const getUsrname = useSelector((state) => state.usrname.username);
 
     return (
         <Box
@@ -26,7 +28,7 @@ export default function Topbar() {
                 width: '100%',
             }}
         >
-            <Box sx={{ color: '#FFFFFF', left: '2%', position: 'absolute' }}>username</Box>
+            <Box sx={{ color: '#FFFFFF', left: '2%', position: 'absolute' }}>{getUsrname}</Box>
 
             <Tabs value={router.pathname == "/chats" ? 1 : 0} onChange={handleChange}
                 sx={{
