@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { action_sentUserName } from "../pages/action/usernameAction";
+import UsernameAction from '../action/usernameAction';
 
 import Modal from "@mui/material/Modal";
 import Grid from "@mui/material/Grid";
@@ -46,7 +46,7 @@ function ModalUsername() {
 
   const onSubmitUsername = () => {
     if (userName.length > 0) {
-      dispatch(action_sentUserName(userName));
+      dispatch(UsernameAction(userName));
       setModal_is_open(false);
     }
   };

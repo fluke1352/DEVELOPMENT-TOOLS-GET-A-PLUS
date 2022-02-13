@@ -1,4 +1,4 @@
-export const action_sentUserName = (name) => {
+export const UsernameAction = (name) => {
   return {
     type: "INPUT_USERNAME",
     data: name,

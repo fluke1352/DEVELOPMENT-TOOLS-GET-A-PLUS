@@ -2,7 +2,7 @@ import "../styles/globals.css";
 import Head from "next/head";
 import { createStore, combineReducers } from "redux";
 import { Provider } from "react-redux";
-import inputReducer from "./reducers/inputReducer";
+import inputReducer from "../reducers/inputReducer";
 import Topbar from "../components/topbar";
 
 
