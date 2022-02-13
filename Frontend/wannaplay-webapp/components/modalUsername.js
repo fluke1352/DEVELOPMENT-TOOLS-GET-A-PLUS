@@ -102,6 +102,7 @@ function modalUsername() {
             {/* Btn of submit */}
             <Grid item xs={3}>
               <Button
+                id="done"
                 onClick={onSubmitUsername}
                 style={{
                   backgroundColor: "#22272E",
