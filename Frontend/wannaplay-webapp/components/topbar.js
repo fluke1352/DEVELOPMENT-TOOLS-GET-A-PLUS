@@ -9,7 +9,6 @@ import { useSelector } from "react-redux";
 export default function Topbar() {
     const router = useRouter();
     const [value, setValue] = React.useState(0);
-    const [socketIO, setsocketIO] = React.useState('');
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -46,7 +45,12 @@ export default function Topbar() {
                 <Tab icon={<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M35.0002 10H31.6668V25H10.0002V28.3334C10.0002 29.25 10.7502 30 11.6668 30H30.0002L36.6668 36.6667V11.6667C36.6668 10.75 35.9168 10 35.0002 10ZM28.3335 20V5.00004C28.3335 4.08337 27.5835 3.33337 26.6668 3.33337H5.00016C4.0835 3.33337 3.3335 4.08337 3.3335 5.00004V28.3334L10.0002 21.6667H26.6668C27.5835 21.6667 28.3335 20.9167 28.3335 20Z" />
                 </svg>
-                }  {...changeindex(1)} className={router.pathname == "/chats" ? styles.blueicon : styles.whiteicon} onClick={() => { router.push("/chats") }} />
+                }  {...changeindex(1)} className={router.pathname == "/chats" ? styles.blueicon : styles.whiteicon} onClick={() => {
+                     router.push({pathname:"/chats",
+                     state: { username: getUsrname }
+                    })
+                     
+                     }} />
 
 
             </Tabs>
