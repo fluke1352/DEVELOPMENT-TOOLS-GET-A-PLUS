@@ -26,7 +26,7 @@ class WorldChatSocket {
             this.io.in('world-chat').emit('client-boardcast', null);
         }
         else {
-            this.io.in('world-chat').emit('client-boardcast', { username : client.username, message : client.message, timeStamp : client.timeStamp});
+            this.io.in('world-chat').emit('client-boardcast', { socket : this.socket.id ,username : client.username, message : client.message, timeStamp : client.timeStamp });
         }
     }
 }
