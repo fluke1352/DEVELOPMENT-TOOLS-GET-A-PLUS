@@ -83,7 +83,6 @@ function modalUsername() {
               <input
                 id="input_username"
                 type="text"
-                autocomplete="input_username"
                 required
                 value={userName}
                 onChange={handleUsrname}
