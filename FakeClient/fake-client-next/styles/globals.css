@@ -14,11 +14,3 @@ a {
 * {
   box-sizing: border-box;
 }
-
-::-webkit-scrollbar {
-  background: transparent; 
-}
-
-::-webkit-scrollbar-thumb {
-  background: #1C2128;
-}
