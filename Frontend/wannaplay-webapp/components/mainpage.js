@@ -1,52 +1,43 @@
 import React, { useState, useEffect } from "react";
-
-// import { FaSearch } from "react-icons/fa";
+import mockData from "../components/mockdata.json";
+import ModalUsername from "./modalUsername";
+import { useSelector, useDispatch } from "react-redux";
 
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import InputAdornment from "@mui/material/InputAdornment";
-import SearchIcon from "@mui/icons-material/Search";
-import IconButton from "@mui/material/IconButton";
-
+import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 
-import mockData from "../components/mockdata.json";
-
 export default function Home() {
-  const [inputName, setInputName] = useState("");
+  const [inputGameName, setInputGameName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [games, setGames] = useState([]);
   const [allGame, setAllGame] = useState([]);
   const [err, setErr] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
-  const handleChange = (event) => {
-    setInputName(event.target.value);
-  };
-
+  //Fetch games data
   async function getGames() {
     try {
       setIsLoading(true);
-      // if(inputName.length < 1 && games === null){
+      // if(inputGameName.length < 1 && games === null){
       // let res = await fetch("https://jsonplaceholder.typicode.com/users");
       // let data = await res.json();
       // setGames(data);
       // }
 
-      if (inputName.length < 1) {
+      if (inputGameName.length < 1) {
         setGames(mockData);
         setAllGame(mockData);
         setIsLoading(false);
-      } else if (inputName.length > 0) {
+      } else if (inputGameName.length > 0) {
         const filteredCharacters = allGame.filter((character) => {
           const gameNameLower = character.name.toLowerCase();
-          const InputNameLower = inputName.toLowerCase();
-          return gameNameLower.includes(InputNameLower);
+          const InputGameNameLower = inputGameName.toLowerCase();
+          return gameNameLower.includes(InputGameNameLower);
         });
         setGames(filteredCharacters);
         setIsLoading(false);
@@ -57,11 +48,8 @@ export default function Home() {
     }
   }
 
-  useEffect(() => {
-    getGames();
-  }, [inputName]);
-
-  const gameReady = games.map((data) => (
+  //Cards of game that availability
+  const CardsGame = games.map((data) => (
     <Grid item xs={2.4}>
       <Card
         sx={{ maxWidth: "100%", borderRadius: 3, borderColor: "primary.main" }}
@@ -88,53 +76,47 @@ export default function Home() {
     </Grid>
   ));
 
+  //Set stage inputGameName for Searching game
+  const handleSearchGame = (event) => {
+    setInputGameName(event.target.value);
+  };
+
+  //Get user name from store of Redux
+  const getUsrname = useSelector((state) => state.usrname.username);
+
+  useEffect(() => {
+    getGames();
+  }, [inputGameName, getUsrname]);
+
   return (
     <Container maxWidth="lg" sx={{ my: "50px" }}>
+      
+      {/* Modal */}
+      <ModalUsername />
+      {/* USER NAME CHECK */}
+      <h1>{getUsrname}</h1>
       {/* Search bar*/}
       <from>
         <Box display="flex" flexDirection="row" justifyContent="center">
-          {/* <TextField
-            size="small"
-            sx={{
-              bgcolor: "#FFF",
-              borderRadius: 4,
-              input: { color: "gray" },
-              width: "60%",
-              p: 1,
-              borderColor: "none",
-            }}
-            id="outlined-textarea"
-            placeholder="Search game"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <IconButton>
-                  <SearchIcon color="disabled" />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }} 
-          /> */}
           <input
             id="game_name"
             type="text"
             autocomplete="game_name"
-            value={inputName}
-            onChange={handleChange}
+            value={inputGameName}
+            onChange={handleSearchGame}
             placeholder="Search game"
             style={{
               backgroundColor: "#FFF",
               borderRadius: 100,
-              color: 'gray',
+              color: "gray",
               width: "50%",
               border: "none",
               padding: 10,
-              fontSize:'1.2rem',
-              height:'2.5vh',
-              textAlign:'center'
+              fontSize: "1.2rem",
+              height: "2.5vh",
+              textAlign: "center",
             }}
           />
-          {/* <FaSearch/> */}
         </Box>
       </from>
 
@@ -161,7 +143,7 @@ export default function Home() {
             </Grid>
           </>
         ) : (
-          gameReady
+          CardsGame
         )}
       </Grid>
     </Container>
