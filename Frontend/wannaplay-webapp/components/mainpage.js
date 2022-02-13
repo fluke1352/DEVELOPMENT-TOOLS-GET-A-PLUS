@@ -51,8 +51,8 @@ export default function Home() {
   }
 
   //Cards of game that availability
-  const CardsGame = games.map((data) => (
-    <Grid item xs={2.4}>
+  const CardsGame = games.map((data, index) => (
+    <Grid item xs={2.4} key={index}>
       <Card
         sx={{ maxWidth: "100%", borderRadius: 3, borderColor: "primary.main" }}
       >
@@ -100,7 +100,6 @@ export default function Home() {
           <input
             id="game_name"
             type="text"
-            autocomplete="game_name"
             value={inputGameName}
             onChange={handleSearchGame}
             placeholder="Search game"
