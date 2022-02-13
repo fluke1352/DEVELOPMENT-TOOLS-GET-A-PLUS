@@ -8,7 +8,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-function modalUsername() {
+function ModalUsername() {
   const [modal_is_open, setModal_is_open] = useState(true);
   const [userName, setUserName] = useState("");
 
@@ -122,4 +122,4 @@ function modalUsername() {
     </div>
   );
 }
-export default modalUsername;
+export default ModalUsername;
