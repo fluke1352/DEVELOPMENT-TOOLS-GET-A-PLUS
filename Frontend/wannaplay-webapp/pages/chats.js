@@ -3,16 +3,15 @@ import Container from '@mui/material/Container';
 import * as React from 'react';
 import TextField from '@mui/material/TextField';
 import { io } from "socket.io-client";
-import { useEffect } from 'react';
-
+import { useEffect, useRef } from 'react';
 
 export default function Chats() {
 
-
+  const messageend = useRef('');
   const [msg, setmsg] = React.useState('');
   const [textArr, settextArr] = React.useState([]);
   const [socketIO, setsocketIO] = React.useState('');
-
+  
   useEffect(function socketConnect() {
     const socket = io('https://wannaplay-world-chat.herokuapp.com/world_chat');
     setsocketIO(socket);
@@ -24,43 +23,57 @@ export default function Chats() {
     joinHandle()
     socketIO.on('message', (data) => {
       settextArr(prev => [...prev, data.message]);
+      
     });
-    socketIO.on('has-join-message', (data) => settextArr(prev => [...prev, { message: data.message, timeStamp: data.timestamp }]));
-    socketIO.on('client-boardcast', (data) => settextArr(prev => [...prev, { username: data.username, message: data.message, timeStamp: data.timestamp }]));
-
+    socketIO.on('has-join-message', (data) => settextArr(prev => [...prev, { message: data.message, time: data.time, socketId: data.socketId }]));
+    socketIO.on('client-boardcast', (data) => settextArr(prev => [...prev, { username: data.username, message: data.message, time: data.time, socketId: data.socketId }]));
   }, [socketIO]);
+
+
+  const sroll = () => {
+    messageend.current.scrollIntoView({ behavior: "smooth" })
+  }
+
+  useEffect(sroll, [textArr])
 
   const msgHandle = function (e) {
     setmsg(e.target.value);
   }
 
   const joinHandle = () => {
+
     const date = new Date();
-    socketIO.emit('join', { username: "รอเเบ้งค์ส่งมา", timeStamp: date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) });
+    socketIO.emit('join', { username: "รอเเบ้งค์ส่งมา", socketId: socketIO.id, time: date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) });
   }
 
   const sendHandle = () => {
-    if (msg.length != 0) {
+    if (msg.length != 0 && !hasBlankSpaces(msg)) {
       const date = new Date();
-      socketIO.emit('client-send', { username: "รอเเบ้งค์ส่งมา", message: msg, timeStamp: date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) });
+      socketIO.emit('client-send', { username: "รอเเบ้งค์ส่งมา", message: msg, socketId: socketIO.id, time: date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) });
       setmsg("")
     }
-    else{
+    else {
       alert("กรุณาใส่ข้อความ")
+      setmsg("")
     }
   }
 
   var handleKeyPress = (event) => {
     if (event.key === 'Enter') {
-      if (msg.length != 0) {
-      const date = new Date();
-      socketIO.emit('client-send', { username: "รอเเบ้งค์ส่งมา", message: msg, timeStamp: date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) });
-      setmsg("")
-    }
-    else{
-      alert("กรุณาใส่ข้อความ")
+      if (msg.length != 0 && !hasBlankSpaces(msg)) {
+        const date = new Date();
+        socketIO.emit('client-send', { username: "รอเเบ้งค์ส่งมา", message: msg, socketId: socketIO.id, time: date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) });
+        setmsg("")
+      }
+      else {
+        alert("กรุณาใส่ข้อความ")
+        setmsg("")
+      }
     }
   }
+
+  function hasBlankSpaces(str) {
+    return str.match(/^\s+$/) !== null;
   }
 
   return (
@@ -82,27 +95,28 @@ export default function Chats() {
           p: 5,
         }}
       >
-        <Box sx={{ overflow: 'auto', height: "95vh" }}>
-          {textArr ? textArr.map((message, index) => {
+        <Box id='allchats' sx={{ overflowY: 'scroll', height: "95vh" }}>
+          {textArr ? textArr.map((messages, index) => {
             return (
-              <Box sx={{ mb: 5, flexDirection: 'row', display: 'flex' }} key={index}>
+              <Box  sx={{ mb: 5, flexDirection: 'row', display: 'flex' }} key={index} style={socketIO.id == messages.socketId ? { color: '#08e8de' } : { color: '#ffffff' }}>
                 <Box sx={{ mr: 5 }}>
-                  {message.timeStamp}
+                  {messages.time}
                 </Box>
 
                 <Box sx={{
                   flexDirection: 'column', display: 'flex'
                 }}>
-                  <Box sx={{ mb: 1, fontWeight: 'bold' }}>{message.username}</Box>
-                  <Box>{message.message}</Box>
+                  <Box sx={{ mb: 1, fontWeight: 'bold' }}>{messages.username}</Box>
+                  <Box>{messages.message}</Box>
                 </Box>
-
+                
               </Box>
+
             )
           }) : "loading..."
           }
+          <div ref={messageend} />
         </Box>
-
 
 
         <TextField
