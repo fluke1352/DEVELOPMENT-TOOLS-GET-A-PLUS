@@ -4,6 +4,7 @@ import * as React from 'react';
 import TextField from '@mui/material/TextField';
 import { io } from "socket.io-client";
 import { useEffect, useRef } from 'react';
+import { useSelector } from "react-redux";
 
 export default function Chats() {
 
@@ -11,7 +12,8 @@ export default function Chats() {
   const [msg, setmsg] = React.useState('');
   const [textArr, settextArr] = React.useState([]);
   const [socketIO, setsocketIO] = React.useState('');
-  
+  const getUsrname = useSelector((state) => state.usrname.username);
+
   useEffect(function socketConnect() {
     const socket = io('https://wannaplay-world-chat.herokuapp.com/world_chat');
     setsocketIO(socket);
@@ -43,13 +45,13 @@ export default function Chats() {
   const joinHandle = () => {
 
     const date = new Date();
-    socketIO.emit('join', { username: "รอเเบ้งค์ส่งมา", socketId: socketIO.id, time: date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) });
+    socketIO.emit('join', { username: getUsrname, socketId: socketIO.id, time: date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) });
   }
 
   const sendHandle = () => {
     if (msg.length != 0 && !hasBlankSpaces(msg)) {
       const date = new Date();
-      socketIO.emit('client-send', { username: "รอเเบ้งค์ส่งมา", message: msg, socketId: socketIO.id, time: date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) });
+      socketIO.emit('client-send', { username: getUsrname, message: msg, socketId: socketIO.id, time: date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) });
       setmsg("")
     }
     else {
@@ -62,7 +64,7 @@ export default function Chats() {
     if (event.key === 'Enter') {
       if (msg.length != 0 && !hasBlankSpaces(msg)) {
         const date = new Date();
-        socketIO.emit('client-send', { username: "รอเเบ้งค์ส่งมา", message: msg, socketId: socketIO.id, time: date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) });
+        socketIO.emit('client-send', { username: getUsrname, message: msg, socketId: socketIO.id, time: date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) });
         setmsg("")
       }
       else {
