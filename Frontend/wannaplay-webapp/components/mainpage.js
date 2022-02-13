@@ -23,6 +23,8 @@ export default function Home() {
   async function getGames() {
     try {
       setIsLoading(true);
+
+      // This code comment to waiting for API get GameData ------------
       // if(inputGameName.length < 1 && games === null){
       // let res = await fetch("https://jsonplaceholder.typicode.com/users");
       // let data = await res.json();

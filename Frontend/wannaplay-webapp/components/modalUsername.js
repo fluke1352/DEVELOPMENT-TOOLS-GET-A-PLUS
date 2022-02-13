@@ -32,12 +32,12 @@ function modalUsername() {
   //Modal controller
   const handleModalOpen = () => setModal_is_open(true);
   const handleModalClose = () => {
-    if (getUsrname) {
+    if (getUsername) {
       setModal_is_open(false);
     }
   };
 
-  //Oncheng Username input set to USERNAME stage
+  //Onchang Username input set to USERNAME stage
   const handleUsrname = (event) => {
     setUserName(event.target.value);
   };
@@ -51,10 +51,10 @@ function modalUsername() {
     }
   };
 
-  const getUsrname = useSelector((state) => state.usrname.username);
+  const getUsername = useSelector((state) => state.usrname.username);
 
   useEffect(() => {
-    if (!getUsrname) {
+    if (!getUsername) {
       handleModalOpen();
     } else {
       handleModalClose();
@@ -71,7 +71,7 @@ function modalUsername() {
       >
         <Box sx={styleModal}>
           <Typography id="keep-mounted-modal-title">
-            <h1>Input your Username {getUsrname}</h1>
+            <h1>Input your Username {getUsername}</h1>
           </Typography>
           <Grid
             container
