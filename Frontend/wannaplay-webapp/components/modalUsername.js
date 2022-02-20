@@ -1,33 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import UsernameAction from '../action/usernameAction';
+import UsernameAction from "../action/usernameAction";
 
 import Modal from "@mui/material/Modal";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import Input from "@mui/material/Input";
+import TextField from "@mui/material/TextField";
+import { styled } from "@mui/material/styles";
 
 function ModalUsername() {
   const [modal_is_open, setModal_is_open] = useState(true);
-  const [userName, setUserName] = useState("");
-
-  //Modal Style
-  const styleModal = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: "25%",
-    height: "17%",
-    bgcolor: "#1C2128",
-    boxShadow: 24,
-    p: 4,
-    alignItems: "center",
-    justifyContent: "center",
-    textAlign: "center",
-    borderRadius: 4,
-  };
 
   //Modal controller
   const handleModalOpen = () => setModal_is_open(true);
@@ -36,30 +21,64 @@ function ModalUsername() {
       setModal_is_open(false);
     }
   };
-
-  //Onchang Username input set to USERNAME stage
-  const handleUsrname = (event) => {
-    setUserName(event.target.value);
-  };
-
+  
+  //Use redux function to create username state
   const dispatch = useDispatch();
 
+  //Create username state to store 
   const onSubmitUsername = () => {
-    if (userName.length > 0) {
-      dispatch(UsernameAction(userName));
+    let username = document.getElementById("input_username").value;
+    if (username.length > 0) {
+      dispatch(UsernameAction(username));
       setModal_is_open(false);
     }
   };
-
+  //Get username redux funct
   const getUsername = useSelector((state) => state.usrname.username);
 
   useEffect(() => {
+    //Check username yet?
     if (!getUsername) {
       handleModalOpen();
     } else {
       handleModalClose();
     }
   }, []);
+
+  const Root = styled("Grid")(({ theme }) => ({
+    // [theme.breakpoints.down("sm")]: {
+      // padding : "10%",
+      // paddingBottom: "3rem",
+      // height: "10vh",
+    // },
+    // [theme.breakpoints.up("sm")]: {
+      //600
+      // padding: "3rem",
+      // height: "20vh",
+    // },
+    // [theme.breakpoints.up("md")]: {
+      //900
+      // padding: "3rem",
+      // height: "20vh",
+    // },
+    // [theme.breakpoints.up("lg")]: {
+      //1200
+      // padding: "3rem",
+      // height: "20vh",
+    // },
+  }));
+
+  //Modal Style
+  const styleModal = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    bgcolor: "#1c2128",
+    boxShadow: 24,
+    borderRadius: 4,
+    padding: "20px",
+  };
 
   return (
     <div>
@@ -68,56 +87,60 @@ function ModalUsername() {
         open={modal_is_open}
         onClose={handleModalClose}
         aria-labelledby="keep-mounted-modal-title"
+        fullWidth
       >
-        <Box sx={styleModal}>
-          <Typography id="keep-mounted-modal-title">
-            <h1>Input your Username {getUsername}</h1>
-          </Typography>
-          <Grid
-            container
-            spacing={5}
-            sx={{ alignItems: "center", justifyContent: "center" }}
-          >
-            {/* input username box */}
-            <Grid item xs={8}>
-              <input
-                id="input_username"
-                type="text"
-                required
-                value={userName}
-                onChange={handleUsrname}
-                style={{
-                  backgroundColor: "#2D333B",
-                  borderRadius: 5,
-                  color: "white",
-                  width: "100%",
-                  border: "none",
-                  fontSize: "1.2rem",
-                  height: "4.5vh",
-                  textAlign: "center",
-                }}
-              />
+        {/* <Box component="form"> */}
+          <Root container sx={styleModal}>
+            {/* Label */}
+            <Grid container sx={{ textAlign: "center" }}>
+              <Grid item xs={12} sm={12} md={12} lg={12}>
+                <Typography
+                  id="keep-mounted-modal-title"
+                  variant="outline"
+                  component="h2"
+                >
+                  Input your username
+                </Typography>
+              </Grid>
             </Grid>
-            {/* Btn of submit */}
-            <Grid item xs={3}>
-              <Button
-                id="done"
-                onClick={onSubmitUsername}
-                style={{
-                  backgroundColor: "#22272E",
-                  borderRadius: 5,
-                  color: "#FFF",
-                  width: "100%",
-                  fontSize: "1rem",
-                  height: "4.5vh",
-                  textAlign: "center",
-                }}
-              >
-                Done
-              </Button>
+
+            {/* Input username form */}
+            <Grid container sx={{ mt: 2, mx: "auto", gridGap: "1vw" }}>
+              {/* Input box username */}
+              <Grid item xs={8} sm={8} md={8} lg={8}>
+                <Input
+                  id="input_username"
+                  type="text"
+                  fullWidth
+                  required
+                  style={{
+                    backgroundColor: "#2D333B",
+                    borderRadius: 5,
+                    color: "white",
+                    border: "none",
+                    height: "30px",
+                    fontSize: "0.8rem",
+                  }}
+                />
+              </Grid>
+              {/* Btn submit form */}
+              <Grid item xs={3} sm={3} md={3} lg={2}>
+                <Button
+                  id="doneBtn"
+                  onClick={onSubmitUsername}
+                  type="submit"
+                  fullWidth
+                  sx={{
+                    backgroundColor: "#22272E",
+                    color: "#FFF",
+                    height: "30px",
+                  }}
+                >
+                  Done
+                </Button>
+              </Grid>
             </Grid>
-          </Grid>
-        </Box>
+          </Root>
       </Modal>
     </div>
   );
