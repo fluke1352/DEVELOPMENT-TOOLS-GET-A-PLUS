@@ -107,7 +107,7 @@ function ModalUsername() {
             {/* Input username form */}
             <Grid container sx={{ mt: 2, mx: "auto", gridGap: "1vw" }}>
               {/* Input box username */}
-              <Grid item xs={8} sm={8} md={8} lg={8}>
+              <Grid item xs={7} sm={8} md={8} lg={8}>
                 <Input
                   id="input_username"
                   type="text"
@@ -124,7 +124,7 @@ function ModalUsername() {
                 />
               </Grid>
               {/* Btn submit form */}
-              <Grid item xs={3} sm={3} md={3} lg={2}>
+              <Grid item xs={2} sm={3} md={3} lg={2}>
                 <Button
                   id="doneBtn"
                   onClick={onSubmitUsername}
