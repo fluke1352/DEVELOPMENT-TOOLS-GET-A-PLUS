@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import mockData from "../components/mockdata.json";
 import ModalUsername from "../components/modalUsername";
-import { useSelector, useDispatch } from "react-redux";
 
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
