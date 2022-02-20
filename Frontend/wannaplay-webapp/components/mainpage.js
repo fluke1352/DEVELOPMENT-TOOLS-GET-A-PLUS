@@ -11,6 +11,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { CardActionArea } from "@mui/material";
+import { styled } from "@mui/material/styles";
 
 export default function Home() {
   const [inputGameName, setInputGameName] = useState("");
@@ -52,15 +53,16 @@ export default function Home() {
 
   //Cards of game that availability
   const CardsGame = games.map((data, index) => (
-    <Grid item xs={2.4} key={index}>
+    <Grid item xs={6} sm={4} md={3} lg={2.4} key={index} >
       <Card
         sx={{ maxWidth: "100%", borderRadius: 3, borderColor: "primary.main" }}
       >
         <CardActionArea>
           <CardMedia
             component="img"
-            height="300px"
-            width="10%"
+            height="290px"
+            width="100%"
+            objectFit="cover"
             image={data.img_url}
           />
           <CardContent sx={{ backgroundColor: "#2D333B" }}>
@@ -89,11 +91,11 @@ export default function Home() {
   }, [inputGameName]);
 
   return (
-    <Container maxWidth="lg" sx={{ my: "50px" }}>
+    <Container maxWidth="lg" sx={{ my: "5vh" }}>
       
       {/* Modal */}
       <ModalUsername />
-      {/* USER NAME CHECK */}
+
       {/* Search bar*/}
       <from>
         <Box display="flex" flexDirection="row" justifyContent="center">
@@ -107,11 +109,11 @@ export default function Home() {
               backgroundColor: "#FFF",
               borderRadius: 100,
               color: "gray",
-              width: "50%",
+              width: "60%",
               border: "none",
               padding: 10,
               fontSize: "1.2rem",
-              height: "2.5vh",
+              height: "4vh",
               textAlign: "center",
             }}
           />
@@ -129,13 +131,13 @@ export default function Home() {
           <h1>Find your community</h1>
         </div>
       </Box>
-      <Grid container spacing={4}>
+      <Grid container spacing={4} sx={{ }}>
         {isLoading ? (
           <>
             <Grid
               sx={{ textAlign: "center", alignItems: "center" }}
               item
-              xs={12}
+              lg={12}
             >
               <h1>Loading . . .</h1>
             </Grid>
