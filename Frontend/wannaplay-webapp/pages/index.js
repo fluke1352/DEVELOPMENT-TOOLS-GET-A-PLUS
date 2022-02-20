@@ -1,5 +1,5 @@
 import React from "react";
-import Mainpage from "../components/mainpage";
+import Mainpage from "./mainpage";
 import Topbar from "../components/topbar";
 import Chats from "./chats";
 
