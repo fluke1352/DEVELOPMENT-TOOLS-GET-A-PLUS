@@ -107,7 +107,7 @@ export default function Home() {
             placeholder="Search game"
             style={{
               backgroundColor: "#FFF",
-              borderRadius: 100,
+              borderRadius: 10,
               color: "gray",
               width: "60%",
               border: "none",

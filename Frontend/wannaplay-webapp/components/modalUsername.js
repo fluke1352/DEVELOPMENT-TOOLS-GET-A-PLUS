@@ -107,7 +107,7 @@ function ModalUsername() {
           {/* Input username form */}
           <Grid
             container
-            columnSpacing={{ xs: 0, sm: 2, md: 2 }}
+            columnSpacing={{ xs: 0, sm: 2, md: 3, lg:3}}
             sx={{ mt: 2 }}
           >
             {/* Input box username */}

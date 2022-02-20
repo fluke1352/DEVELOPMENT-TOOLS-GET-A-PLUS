@@ -20,8 +20,8 @@ export default function Home() {
   const router = useRouter();
   return (
     <div>
-        {/* <Mainpage /> */}
-        <SelectRoompage/>
+        <Mainpage />
+        {/* <SelectRoompage/> */}
     </div>
   );
 }

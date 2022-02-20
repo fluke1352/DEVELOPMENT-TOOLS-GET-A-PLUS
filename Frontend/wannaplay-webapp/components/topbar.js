@@ -27,6 +27,7 @@ export default function Topbar() {
         width: "100%",
       }}
     >
+      {/* Show USERNAME */}
       <Box sx={{ color: "#FFFFFF", left: "2%", position: "absolute" }}>
         {getUsrname}
       </Box>
@@ -41,6 +42,7 @@ export default function Topbar() {
           borderRadius: 0,
         }}
       >
+        {/* Home Tab */}
         <Tab
           icon={
             <svg
@@ -61,7 +63,7 @@ export default function Topbar() {
             router.push("/");
           }}
         />
-
+        {/* Chat Tab */}
         <Tab
           icon={
             <svg
