@@ -46,26 +46,6 @@ function ModalUsername() {
   }, []);
 
   const Root = styled("Grid")(({ theme }) => ({
-    // [theme.breakpoints.down("sm")]: {
-    // padding : "10%",
-    // paddingBottom: "3rem",
-    // height: "10vh",
-    // },
-    // [theme.breakpoints.up("sm")]: {
-    //600
-    // padding: "3rem",
-    // height: "20vh",
-    // },
-    // [theme.breakpoints.up("md")]: {
-    //900
-    // padding: "3rem",
-    // height: "20vh",
-    // },
-    // [theme.breakpoints.up("lg")]: {
-    //1200
-    // padding: "3rem",
-    // height: "20vh",
-    // },
   }));
 
   //Modal Style
@@ -107,7 +87,7 @@ function ModalUsername() {
           {/* Input username form */}
           <Grid
             container
-            columnSpacing={{ xs: 0, sm: 2, md: 2 }}
+            columnSpacing={{ xs: 0, sm: 2, md: 3, lg:3}}
             sx={{ mt: 2 }}
           >
             {/* Input box username */}
