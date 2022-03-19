@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 import mockData from "../components/mockdata.json";
 import ModalUsername from "../components/modalUsername";
@@ -12,6 +13,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { CardActionArea } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import Link from "next/link";
 
 export default function Home() {
   const [inputGameName, setInputGameName] = useState("");
@@ -19,6 +21,7 @@ export default function Home() {
   const [games, setGames] = useState([]);
   const [allGame, setAllGame] = useState([]);
   const [err, setErr] = useState(false);
+  const router = useRouter();
 
   //Fetch games data
   async function getGames() {
@@ -53,15 +56,24 @@ export default function Home() {
 
   //Cards of game that availability
   const CardsGame = games.map((data, index) => (
-    <Grid item xs={6} sm={4} md={3} lg={2.4} key={index} >
+    <Grid item xs={6} sm={4} md={3} lg={2.4} key={index}>
       <Card
         sx={{ maxWidth: "100%", borderRadius: 3, borderColor: "primary.main" }}
+        onClick={() => {
+          // router.push("/SelectRoompage.js");
+          const gamename = "VALORANT";
+          router.push({
+            pathname: "/SelectRoompage",
+            // query: { gameName: gamename },
+          });
+        }}
       >
+        {/* <Link href="https://www.facebook.com/"> */}
         <CardActionArea>
           <CardMedia
             component="img"
             height="290px"
-            width="100%"
+            maxWidth="100%"
             objectFit="cover"
             image={data.img_url}
           />
@@ -76,6 +88,7 @@ export default function Home() {
             </Typography>
           </CardContent>
         </CardActionArea>
+        {/* </Link> */}
       </Card>
     </Grid>
   ));
@@ -85,14 +98,12 @@ export default function Home() {
     setInputGameName(event.target.value);
   };
 
-
   useEffect(() => {
     getGames();
   }, [inputGameName]);
 
   return (
     <Container maxWidth="lg" sx={{ my: "5vh" }}>
-      
       {/* Modal */}
       <ModalUsername />
 
@@ -131,7 +142,7 @@ export default function Home() {
           <h1>Find your community</h1>
         </div>
       </Box>
-      <Grid container spacing={4} sx={{ }}>
+      <Grid container spacing={4}>
         {isLoading ? (
           <>
             <Grid

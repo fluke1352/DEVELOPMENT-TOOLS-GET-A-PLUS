@@ -46,26 +46,6 @@ function ModalUsername() {
   }, []);
 
   const Root = styled("Grid")(({ theme }) => ({
-    // [theme.breakpoints.down("sm")]: {
-    // padding : "10%",
-    // paddingBottom: "3rem",
-    // height: "10vh",
-    // },
-    // [theme.breakpoints.up("sm")]: {
-    //600
-    // padding: "3rem",
-    // height: "20vh",
-    // },
-    // [theme.breakpoints.up("md")]: {
-    //900
-    // padding: "3rem",
-    // height: "20vh",
-    // },
-    // [theme.breakpoints.up("lg")]: {
-    //1200
-    // padding: "3rem",
-    // height: "20vh",
-    // },
   }));
 
   //Modal Style

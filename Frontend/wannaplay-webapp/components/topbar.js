@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import * as React from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 
@@ -18,18 +19,18 @@ export default function Topbar() {
 
   return (
     <Box
+      fullWidth
       sx={{
-        justifyContent: "center",
         display: "flex",
         flexDirection: "column",
+        justifyContent: "center",
         alignItems: "center",
         bgcolor: "#2D333B",
-        width: "100%",
       }}
     >
       {/* Show USERNAME */}
       <Box sx={{ color: "#FFFFFF", left: "2%", position: "absolute" }}>
-        {getUsrname}
+        <Typography fontSize={"0.9rem"}>{getUsrname}</Typography>
       </Box>
 
       <Tabs
