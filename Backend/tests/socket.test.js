@@ -3,17 +3,14 @@ import { Server } from "socket.io";
 import { createServer } from "http";
 import { io } from 'socket.io-client';
 import buildChatSocketClass from "../utils/WebSocketClass.js";
-import express from "express";
-import socketOption from '../constants/socketServerOptions.js';
 
-let httpServer, clientSocket, serverSocket
+let httpServer, clientSocket, serverSocket, ios;
 
 beforeAll((done) => {
-    const server = express();
-    httpServer = createServer(server);
-    const ios = new Server(httpServer, socketOption);
+    httpServer = createServer();
+    ios = new Server(httpServer);
     serverSocket = buildChatSocketClass(ios);
-    httpServer.listen(8081);
+    httpServer.listen(8080);
     done();
 });
 
@@ -54,9 +51,8 @@ describe('Client Send Message Test', () => {
     test('client_send_message', (done) => {
         clientSocket.emit('client-send', { socketId : clientSocket.id, username : "takai", message : "Hello World", time : "12:30PM"});
         clientSocket.on('client-boardcast', (data) => {
-            console.log(data)
             try {
-                expect(data).toEqual( { socketId : clientSocket.id, username : "takai", message : "Hello World", time : "12:30PM"} );
+                expect(data).toEqual({ socketId : clientSocket.id, username : "takai", message : "Hello World", time : "12:30PM"});
                 done();
             }
             catch(err) {
@@ -79,4 +75,3 @@ describe('Client Send Message Test', () => {
     });
 
 });
-
