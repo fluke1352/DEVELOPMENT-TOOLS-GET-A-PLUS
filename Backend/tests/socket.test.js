@@ -10,7 +10,7 @@ beforeAll((done) => {
     httpServer = createServer();
     ios = new Server(httpServer);
     serverSocket = buildChatSocketClass(ios);
-    httpServer.listen(8080);
+    httpServer.listen(8081);
     done();
 });
 
