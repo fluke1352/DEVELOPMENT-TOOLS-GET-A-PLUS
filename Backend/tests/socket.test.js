@@ -13,7 +13,7 @@ beforeAll((done) => {
     httpServer = createServer(server);
     const ios = new Server(httpServer, socketOption);
     serverSocket = buildChatSocketClass(ios);
-    httpServer.listen(8080);
+    httpServer.listen(8081);
     done();
 });
 
