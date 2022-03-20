@@ -49,6 +49,7 @@ function MyApp({ Component, pageProps }) {
             href="/favicon-16x16.png"
           />
         </Head>
+
         <Topbar></Topbar>
         <Component {...pageProps} />
       </Provider>
