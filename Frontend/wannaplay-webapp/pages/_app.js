@@ -1,15 +1,15 @@
 import "../styles/globals.css";
 import Head from "next/head";
-import { createStore, combineReducers } from "redux";
+// import { createStore, combineReducers } from "redux";
+import {store} from '../store/store'
 import { Provider } from "react-redux";
-import inputReducer from "../reducers/inputReducer";
+// import inputReducer from "../store/inputReducer";
 import Topbar from "../components/topbar";
 
-const rootReducer = combineReducers({
-  usrname: inputReducer,
-});
-
-const store = createStore(rootReducer);
+// const rootReducer = combineReducers({
+//   get_username: inputReducer,
+// });
+// const store = createStore(rootReducer);
 
 function MyApp({ Component, pageProps }) {
   return (

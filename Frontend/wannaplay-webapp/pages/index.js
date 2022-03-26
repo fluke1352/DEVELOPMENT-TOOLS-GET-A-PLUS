@@ -7,7 +7,7 @@ import Chats from "./chats";
 import { createStore, combineReducers } from "redux";
 import { Provider } from "react-redux";
 import { useRouter } from "next/router";
-import inputReducer from "../reducers/inputReducer";
+import inputReducer from "../store/usernameReducer";
 
 // const rootReducer = combineReducers({
 //   usrname: inputReducer

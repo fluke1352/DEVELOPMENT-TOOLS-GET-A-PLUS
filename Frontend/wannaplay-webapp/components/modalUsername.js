@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import UsernameAction from "../action/usernameAction";
+import UsernameAction from "../store/usernameAction";
 
 import Modal from "@mui/material/Modal";
 import Grid from "@mui/material/Grid";
@@ -34,7 +34,7 @@ function ModalUsername() {
     }
   };
   //Get username redux funct
-  const getUsername = useSelector((state) => state.usrname.username);
+  const getUsername = useSelector((state) => state.get_username.username);
 
   useEffect(() => {
     //Check username yet?

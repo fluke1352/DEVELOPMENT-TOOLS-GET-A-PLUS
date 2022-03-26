@@ -15,7 +15,7 @@ export default function Topbar() {
     setValue(newValue);
   };
 
-  const getUsrname = useSelector((state) => state.usrname.username);
+  const getUsrname = useSelector((state) => state.get_username.username);
 
   return (
     <Box
