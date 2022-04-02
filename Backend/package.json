@@ -9,6 +9,8 @@
   },
   "jest": {
     "transform": {
+       "collectCoverage": true,
+       "coverageReporters": ["json", "html"],
       "^.+\\.jsx?$": "babel-jest"
     }
   },
