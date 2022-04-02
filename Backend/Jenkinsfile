@@ -1,0 +1,36 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Pull code') {
+            steps {
+               checkout scm
+            }
+        }
+        stage('Download dependency') {
+            steps {
+                 dir('Backend') {
+                    sh 'npm install'
+                }
+            }
+        }
+        stage('Run unit test') {
+            steps {
+                dir('Backend') {
+                   sh 'npm run test'
+                }
+                
+            }
+        }
+        stage('Run Integration test') {
+            steps {
+                echo 'run component test'
+            }
+        }
+        stage('Deployment') {
+            steps {
+                echo 'TODO'
+            }
+        }
+    }
+}
