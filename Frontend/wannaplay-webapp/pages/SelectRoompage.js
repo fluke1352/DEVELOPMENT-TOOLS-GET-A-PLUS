@@ -99,7 +99,7 @@ export default function SelectRoompage(query) {
     return (
       <Grid
         item
-        key={index}
+        key={index + "" + data.roomSize}
         xs={12}
         sm={6}
         md={6}
@@ -164,7 +164,7 @@ export default function SelectRoompage(query) {
                   {data.roomUser.map((user, index) => {
                     const labelId = `username-list-label-${index}`;
                     return (
-                      <ListItem>
+                      <ListItem key={index}>
                         <ListItemText
                           color="red"
                           labelId={labelId}
