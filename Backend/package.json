@@ -8,9 +8,9 @@
     "test": "jest --coverage"
   },
   "jest": {
+    "collectCoverage": true,
+    "coverageReporters": ["json", "html"],
     "transform": {
-       "collectCoverage": true,
-       "coverageReporters": ["json", "html"],
       "^.+\\.jsx?$": "babel-jest"
     }
   },
