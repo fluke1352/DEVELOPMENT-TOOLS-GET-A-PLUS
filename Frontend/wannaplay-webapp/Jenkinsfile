@@ -3,7 +3,7 @@ pipeline {
 stages {
     stage('Pull code') {
         steps {
-            git branch: 'main', url: 'https://github.com/fluke1352/DEVELOPMENT-TOOLS-GET-A-PLUS'
+            Checkout scm
         }
     }
     stage('Download dependency') {
