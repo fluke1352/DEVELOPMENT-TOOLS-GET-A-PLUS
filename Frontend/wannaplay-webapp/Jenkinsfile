@@ -3,7 +3,7 @@ pipeline {
 stages {
     stage('Pull code') {
         steps {
-            Checkout scm
+            checkout scm
         }
     }
     stage('Download dependency') {
