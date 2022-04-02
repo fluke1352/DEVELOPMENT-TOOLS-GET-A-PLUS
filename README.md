@@ -10,7 +10,7 @@
     
   ### Example
     
-    fix: prevent racing of requests
+    fix: prevent racing of requests.
     
 ## Commit Message
 * `add` เพื่มไฟล์หรือสร้างไฟล์ใหม่
