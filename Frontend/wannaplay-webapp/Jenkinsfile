@@ -1,0 +1,40 @@
+pipeline {
+     agent any
+stages {
+    stage('Pull code') {
+        steps {
+            git branch: 'main', url: 'https://github.com/fluke1352/DEVELOPMENT-TOOLS-GET-A-PLUS'
+        }
+    }
+    stage('Download dependency') {
+        steps {
+            dir('Frontend/wannaplay-webapp') {
+                sh 'npm install'
+            }
+        }
+    }
+    stage('Run unit test') {
+        steps {
+            echo 'run unit test'
+        }
+    }
+    stage('Run Integration test') {
+        steps {
+            echo 'run component test'
+        }
+    }
+    stage('Build') {
+        steps {
+            
+           dir('Frontend/wannaplay-webapp') {
+                sh 'npm run-script build'
+            }
+        }
+    }
+    stage('Deployment') {
+        steps {
+            echo 'Deploy'
+        }
+    }
+  }
+}
