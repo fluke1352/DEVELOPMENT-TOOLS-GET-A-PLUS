@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import mockData from "../components/mockdata.json";
-import ModalUsername from "./modalUsername";
+import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
+import mockData from "../components/mockdata.json";
+import ModalUsername from "../components/modalUsername";
 
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -11,6 +12,8 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { CardActionArea } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import Link from "next/link";
 
 export default function Home() {
   const [inputGameName, setInputGameName] = useState("");
@@ -18,19 +21,18 @@ export default function Home() {
   const [games, setGames] = useState([]);
   const [allGame, setAllGame] = useState([]);
   const [err, setErr] = useState(false);
+  const router = useRouter();
 
   //Fetch games data
   async function getGames() {
     try {
       setIsLoading(true);
-
       // This code comment to waiting for API get GameData ------------
       // if(inputGameName.length < 1 && games === null){
       // let res = await fetch("https://jsonplaceholder.typicode.com/users");
       // let data = await res.json();
       // setGames(data);
       // }
-
       if (inputGameName.length < 1) {
         setGames(mockData);
         setAllGame(mockData);
@@ -52,15 +54,25 @@ export default function Home() {
 
   //Cards of game that availability
   const CardsGame = games.map((data, index) => (
-    <Grid item xs={2.4} key={index}>
+    <Grid item xs={6} sm={4} md={3} lg={2.4} key={index}>
       <Card
         sx={{ maxWidth: "100%", borderRadius: 3, borderColor: "primary.main" }}
+        onClick={() => {
+          // router.push("/SelectRoompage.js");
+          const gamename = "VALORANT";
+          router.push({
+            pathname: "/SelectRoompage",
+            // query: { gameName: gamename },
+          });
+        }}
       >
+        {/* <Link href="https://www.facebook.com/"> */}
         <CardActionArea>
           <CardMedia
             component="img"
-            height="300px"
-            width="10%"
+            height="290px"
+            maxWidth="100%"
+            objectFit="cover"
             image={data.img_url}
           />
           <CardContent sx={{ backgroundColor: "#2D333B" }}>
@@ -74,6 +86,7 @@ export default function Home() {
             </Typography>
           </CardContent>
         </CardActionArea>
+        {/* </Link> */}
       </Card>
     </Grid>
   ));
@@ -83,17 +96,15 @@ export default function Home() {
     setInputGameName(event.target.value);
   };
 
-
   useEffect(() => {
     getGames();
   }, [inputGameName]);
 
   return (
-    <Container maxWidth="lg" sx={{ my: "50px" }}>
-      
+    <Container maxWidth="lg" sx={{ my: "5vh" }}>
       {/* Modal */}
       <ModalUsername />
-      {/* USER NAME CHECK */}
+
       {/* Search bar*/}
       <from>
         <Box display="flex" flexDirection="row" justifyContent="center">
@@ -105,13 +116,13 @@ export default function Home() {
             placeholder="Search game"
             style={{
               backgroundColor: "#FFF",
-              borderRadius: 100,
+              borderRadius: 10,
               color: "gray",
-              width: "50%",
+              width: "60%",
               border: "none",
               padding: 10,
               fontSize: "1.2rem",
-              height: "2.5vh",
+              height: "4vh",
               textAlign: "center",
             }}
           />
@@ -135,7 +146,7 @@ export default function Home() {
             <Grid
               sx={{ textAlign: "center", alignItems: "center" }}
               item
-              xs={12}
+              lg={12}
             >
               <h1>Loading . . .</h1>
             </Grid>
