@@ -40,13 +40,13 @@ function ModalUsername() {
     //Check username yet?
     if (!getUsername) {
       handleModalOpen();
-    } else {
-      handleModalClose();
-    }
+    } 
+    // else {
+    //   handleModalClose();
+    // }
   }, []);
 
-  const Root = styled("Grid")(({ theme }) => ({
-  }));
+  const Root = styled("Grid")(({ theme }) => ({}));
 
   //Modal Style
   const styleModal = {
@@ -70,61 +70,60 @@ function ModalUsername() {
         fullWidth
       >
         <Box component="form">
-        <Root container sx={styleModal}>
-          {/* Label */}
-          <Grid container sx={{ textAlign: "center" }}>
-            <Grid item xs={12} sm={12} md={12} lg={12}>
-              <Typography
-                id="keep-mounted-modal-title"
-                variant="outline"
-                component="h2"
-              >
-                Input your username
-              </Typography>
+          <Root container sx={styleModal}>
+            {/* Label */}
+            <Grid container sx={{ textAlign: "center" }}>
+              <Grid item xs={12} sm={12} md={12} lg={12}>
+                <Typography
+                  id="keep-mounted-modal-title"
+                  variant="outline"
+                  component="h2"
+                >
+                  Input your username
+                </Typography>
+              </Grid>
             </Grid>
-          </Grid>
-
-          {/* Input username form */}
-          <Grid
-            container
-            columnSpacing={{ xs: 0, sm: 2, md: 3, lg:3}}
-            sx={{ mt: 2 }}
-          >
-            {/* Input box username */}
-            <Grid item xs={7} sm={8} md={8} lg={8}>
-              <Input
-                id="input_username"
-                type="text"
-                fullWidth
-                required
-                style={{
-                  backgroundColor: "#2D333B",
-                  borderRadius: 5,
-                  color: "white",
-                  border: "none",
-                  height: "30px",
-                  fontSize: "0.8rem",
-                }}
-              />
+            {/* Input username form */}
+            <Grid
+              container
+              columnSpacing={{ xs: 0, sm: 2, md: 3, lg: 3 }}
+              sx={{ mt: 2 }}
+            >
+              {/* Input box username */}
+              <Grid item xs={7} sm={8} md={8} lg={8}>
+                <Input
+                  id="input_username"
+                  type="text"
+                  fullWidth
+                  required
+                  style={{
+                    backgroundColor: "#2D333B",
+                    borderRadius: 5,
+                    color: "white",
+                    border: "none",
+                    height: "30px",
+                    fontSize: "0.8rem",
+                  }}
+                />
+              </Grid>
+              {/* Btn submit form */}
+              <Grid item xs={1} sm={3} md={3} lg={2}>
+                <Button
+                  id="doneBtn"
+                  onClick={onSubmitUsername}
+                  type="submit"
+                  fullWidth
+                  sx={{
+                    backgroundColor: "#22272E",
+                    color: "#FFF",
+                    height: "30px",
+                  }}
+                >
+                  Done
+                </Button>
+              </Grid>
             </Grid>
-            {/* Btn submit form */}
-            <Grid item xs={1} sm={3} md={3} lg={2}>
-              <Button
-                id="doneBtn"
-                onClick={onSubmitUsername}
-                type="submit"
-                fullWidth
-                sx={{
-                  backgroundColor: "#22272E",
-                  color: "#FFF",
-                  height: "30px",
-                }}
-              >
-                Done
-              </Button>
-            </Grid>
-          </Grid>
-        </Root>
+          </Root>
         </Box>
       </Modal>
     </div>

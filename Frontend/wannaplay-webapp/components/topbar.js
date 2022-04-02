@@ -1,19 +1,27 @@
 import styles from "../styles/topbar.module.css";
 import Box from "@mui/material/Box";
-import * as React from "react";
+// import * as React from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-
+import React, { useState, useEffect } from "react";
+import { Link, Route, Switch, useLocation } from "react-router-dom";
+import Index from "../pages/index";
 export default function Topbar() {
   const router = useRouter();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
+  const [path, setPath] = useState('/');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  // useEffect(() => {
+  //   //Check username yet?
+  //   setPath(router.pathname);
+  // }, [router.pathname]);
 
   const getUsrname = useSelector((state) => state.get_username.username);
 
@@ -30,11 +38,13 @@ export default function Topbar() {
     >
       {/* Show USERNAME */}
       <Box sx={{ color: "#FFFFFF", left: "2%", position: "absolute" }}>
-        <Typography fontSize={"0.9rem"}>{getUsrname}</Typography>
+        <Typography data-testid="isUsername" fontSize={"0.9rem"}>
+          {getUsrname}
+        </Typography>
       </Box>
 
       <Tabs
-        value={router.pathname == "/chats" ? 1 : 0}
+        value={path == "/chats" ? 1 : 0}
         onChange={handleChange}
         sx={{
           flex: 1,
@@ -45,6 +55,7 @@ export default function Topbar() {
       >
         {/* Home Tab */}
         <Tab
+          data-testid="homeTab"
           icon={
             <svg
               width="40"
@@ -57,15 +68,14 @@ export default function Topbar() {
             </svg>
           }
           {...changeindex(0)}
-          className={
-            router.pathname == "/" ? styles.blueicon : styles.whiteicon
-          }
+          className={path == "/" ? styles.blueicon : styles.whiteicon}
           onClick={() => {
             router.push("/");
           }}
         />
         {/* Chat Tab */}
         <Tab
+          data-testid="chatTab"
           icon={
             <svg
               width="40"
@@ -78,9 +88,7 @@ export default function Topbar() {
             </svg>
           }
           {...changeindex(1)}
-          className={
-            router.pathname == "/chats" ? styles.blueicon : styles.whiteicon
-          }
+          className={path == "/chats" ? styles.blueicon : styles.whiteicon}
           onClick={() => {
             router.push({
               pathname: "/chats",
