@@ -14,9 +14,9 @@ stages {
         }
     }
     stage('Run unit test') {
-        steps {
-            echo 'run unit test'
-        }
+        dir('Frontend/wannaplay-webapp') {
+                sh 'npm run test'
+            }
     }
     stage('Run Integration test') {
         steps {
