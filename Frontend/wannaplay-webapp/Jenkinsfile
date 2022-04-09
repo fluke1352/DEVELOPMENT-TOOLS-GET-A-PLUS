@@ -53,7 +53,7 @@ stages {
       steps {
             dir('Frontend/wannaplay-webapp') {
                 withCredentials([string(credentialsId: 'T09_FRONTEND_USERNAME', variable: 'T09_USERNAME')]) {
-                   sh 'ssh' $T09_USERNAME
+                   sh 'ssh $T09_USERNAME'
                }
                withCredentials([string(credentialsId: 'T09_FRONTEND_PASS', variable: 'T09_PASS')]) {
                     sh $T09_PASS
