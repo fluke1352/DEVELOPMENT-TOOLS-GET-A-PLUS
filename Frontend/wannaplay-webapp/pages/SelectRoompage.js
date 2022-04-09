@@ -13,6 +13,8 @@ import { CardActionArea } from "@mui/material";
 import { styled } from "@mui/material/styles";
 // import Button from "@mui/material/Button";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import Alert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
 
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -26,6 +28,15 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 
 export default function SelectRoompage(query) {
+  const [gameName, setGameName] = useState("Valorant");
+  const [gameDescript, setGameDescript] = useState(
+    "Blend your style and experience on a global, competitive stage. You have 13 rounds to attack and defend your side using sharp gunplay and tactical abilities. And, with one life."
+  );
+  const [gameBanner, setGameBanner] = useState(
+    "https://via.placeholder.com/180x250"
+  );
+
+  //Mock up rooms data
   const obj = [
     {
       roomUser: [1, 2, 3, 4],
@@ -68,11 +79,27 @@ export default function SelectRoompage(query) {
       roomName: "คนทีมซ้อมแข่งครับ 😎😎",
     },
   ];
+
+  // const AlertBox = (
+  //   <Stack sx={{ width: "100%" }} spacing={2}>
+  //     <Alert severity="error">{`Room "${data.roomName}" is full.`}</Alert>
+  //     <Alert severity="success">{`Connecting ${data.roomName} . . `}</Alert>
+  //   </Stack>
+  // );
+
   const RoomsCard = obj.map((data, index) => {
+    const checkConnectRoom = (data) => {
+      if (data.roomUser.length === data.roomSize) {
+        alert(`Room "${data.roomName}" is full.`);
+      } else {
+        alert(`Connecting "${data.roomName}" room.`);
+      }
+    };
+
     return (
       <Grid
         item
-        key={index}
+        key={index + "" + data.roomSize}
         xs={12}
         sm={6}
         md={6}
@@ -89,6 +116,9 @@ export default function SelectRoompage(query) {
           // onClick={() => {
           //   router.push("");
           // }}
+
+          //Check can join room OR room full
+          onClick={() => checkConnectRoom(data)}
         >
           <CardActionArea>
             <CardContent sx={{ backgroundColor: "#22272E", color: "white" }}>
@@ -134,7 +164,7 @@ export default function SelectRoompage(query) {
                   {data.roomUser.map((user, index) => {
                     const labelId = `username-list-label-${index}`;
                     return (
-                      <ListItem>
+                      <ListItem key={index}>
                         <ListItemText
                           color="red"
                           labelId={labelId}
@@ -162,22 +192,24 @@ export default function SelectRoompage(query) {
         sx={{ my: 5 }}
       >
         {/*Game Description */}
-        <Grid item  xs={12} sm={6} md={6} lg={6} sx={{ borderRadius: 4 }}>
+        <Grid item xs={12} sm={6} md={6} lg={6} sx={{ borderRadius: 4 }}>
           <Grid
             container
             fullWidth
-            sx={{
-              // borderRadius: 3,
-              // border: 1,
-              // borderColor: "#444C56",
-            }}
+            sx={
+              {
+                // borderRadius: 3,
+                // border: 1,
+                // borderColor: "#444C56",
+              }
+            }
             columnSpacing={{ xs: 1, sm: 1, md: 1, lg: 1 }}
           >
             {/* Picture game banner */}
             <Grid item xs={6} sm={5} md={4} lg={4} sx={{}}>
               <img
-                src={"https://via.placeholder.com/180x250"}
-                srcSet={"https://via.placeholder.com/180x250"}
+                src={gameBanner}
+                srcSet={gameBanner}
                 // alt={item.title}
                 loading="lazy"
                 height="270vh"
@@ -188,20 +220,16 @@ export default function SelectRoompage(query) {
             {/* Game name and Description */}
             {console.log(query.gameName + "!!!!")}
             <Grid item xs={6} sm={7} md={8} lg={8} my={2}>
-              <Typography
-                variant="h5"
-                mb={2}
-                fontWeight={"20px"}
-              >{`VALORANT`}</Typography>
+              <Typography variant="h5" mb={2} fontWeight={"20px"}>
+                {gameName}
+              </Typography>
               <Typography variant="p" fontSize={"1rem"}>
-                {`Blend your style and experience on a global, competitive stage.
-                You have 13 rounds to attack and defend your side using sharp
-                gunplay and tactical abilities. And, with one life.`}
+                {gameDescript}
               </Typography>
             </Grid>
           </Grid>
         </Grid>
-        {/* Ceate new room card */}
+        {/* Create new room card */}
         <Grid item xs={12} sm={6} md={6} lg={6} sx={{ borderRadius: 4 }}>
           <Card
             fullWidth
@@ -210,6 +238,7 @@ export default function SelectRoompage(query) {
               border: 1,
               borderColor: "#347D39",
             }}
+            onClick={() => alert(`Creating new room.`)}
           >
             <CardActionArea>
               <CardContent

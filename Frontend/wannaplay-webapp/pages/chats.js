@@ -12,7 +12,7 @@ export default function Chats() {
   const [msg, setmsg] = React.useState('');
   const [textArr, settextArr] = React.useState([]);
   const [socketIO, setsocketIO] = React.useState('');
-  const getUsrname = useSelector((state) => state.usrname.username);
+  const getUsrname = useSelector((state) => state.get_username.username);
 
   useEffect(function socketConnect() {
     const socket = io('https://wannaplay-world-chat.herokuapp.com/world_chat');

@@ -1,0 +1,10 @@
+version: "3"
+services:
+  frontend:
+    image: macsakarn/team-9-frontend
+    build: ./Frontend/wannaplay-webapp
+    ports:
+      - "8000:3030"
+  backtend:
+    image: macsakarn/team-9-backtend
+    build: ./Backend
