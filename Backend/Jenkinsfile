@@ -27,12 +27,30 @@ pipeline {
                 echo 'run component test'
             }
         }
+        stage('build') {
+            steps {
+            dir('Backend') {
+                sh 'docker image build devtool09/team-9-backend:1.0.2'
+                 withCredentials([string(credentialsId: 'T09_PASSWORD', variable: 'T09_PASSWORD')]) {
+                     sh 'docker login'
+                     sh $T09_PASSWORD
+                     sh $T09_PASSWORD
+                    }
+                    sh 'docker push devtool09/team-9-backend:1.0.2'
+                }
+            }
+        }
         stage('Deployment') {
             steps {
                 dir('Backend'){
                     withCredentials([string(credentialsId: 'T09_BACKEND_USERNAME', variable: 'T09_USERNAME')]){
-                        echo "${T09_USERNAME}"
+                        sh 'sshGet T09_USERNAME'
                     }
+                    withCredentials([string(credentialsId: 'T09_BACKEND_PASSWORD', variable: 'T09_PASSWORD')]){
+                        sh 'T09_PASSWORD'
+                    }
+                    sh 'docker pull devtool09/team-9-backend:1.0.2'
+                    sh 'docker container run -d -p 9989:8080 devtool09/team-9-backend:1.0.2'
                 }
             }
         }
