@@ -34,6 +34,25 @@ stages {
         }
     }
     stage('Deployment') {
+    node(){
+    dir ("${env.BUILD_ID}"){
+        env.GIT_TAG_NAME = gitTagName()
+        currentBuild.displayName = #${BUILD_NUMBER}, ${env.GIT_TAG_NAME}
+        sh 'chmod 755 ${WORKSPACE}/${BUILD_ID}/config/shell/appVersionDev.sh && cd ${WORKSPACE}/${BUILD_ID}/config/shell/&& ./appVersionDev.sh'
+    }
+          }
+     String gitTagName(){
+          commit = getCommit()
+          if(commit){
+               desc = sh{script: "git describe --tag ${commit}", returnStdount: true)? .trim}
+           if (isTag(desc)){return desc}
+           }
+          return null
+}
+
+String getCommit(){
+    return sh(script: 'git rev-parse HEAD', returnStdout: true)? .trim()
+}
         steps {
             echo 'Deploy'
         }
