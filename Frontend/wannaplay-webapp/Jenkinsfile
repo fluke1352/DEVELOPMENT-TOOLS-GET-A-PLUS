@@ -38,13 +38,13 @@ stages {
       steps {
             echo 'buildimage'
             dir('Frontend/wannaplay-webapp') {
-                sh 'docker image build macsakarn/team-9-frontend:1.0.2'
+                sh 'docker image build devtool09/team-9-frontend:1.0.2'
                  withCredentials([string(credentialsId: 'T09_PASSWORD', variable: 'T09_PASSWORD')]) {
                      sh 'docker login'
                      sh $T09_PASSWORD
                      sh $T09_PASSWORD
                     }
-                sh 'docker push macsakarn/team-9-frontend:1.0.2'
+                sh 'docker push devtool09/team-9-frontend:1.0.2'
             }
         }
     }
@@ -59,8 +59,8 @@ stages {
                     sh $T09_PASS
                }
                
-                 sh 'docker pull macsakarn/team-9-frontend:1.0.2'
-                 sh 'docker container run -d -p 9989:3000 macsakarn/team-9-frontend:1.0.2'
+                 sh 'docker pull devtool09/team-9-frontend:1.0.2'
+                 sh 'docker container run -d -p 9989:3000 devtool09/team-9-frontend:1.0.2'
             }
         }
     }
