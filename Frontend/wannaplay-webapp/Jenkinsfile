@@ -33,10 +33,35 @@ stages {
             }
         }
     }
-    stage('Deployment') {
-        steps {
-            echo 'Deploy'
+     stage('buildimage') {
+      steps {
+            dir('Frontend/wannaplay-webapp') {
+                sh 'docker image build macsakarn/team-9-frontend:1.0.2'
+                 withCredentials([string(credentialsId: 'T09_PASSWORD', variable: 'T09_PASSWORD')]) {
+                     sh 'docker login'
+                     sh $T09_PASSWORD
+                     sh $T09_PASSWORD
+                    }
+                sh 'docker push macsakarn/team-9-frontend:1.0.2'
+            }
         }
     }
+     
+    stage('Deployment') {
+      steps {
+            dir('Frontend/wannaplay-webapp') {
+                withCredentials([string(credentialsId: 'T09_FRONTEND_USERNAME', variable: 'T09_USERNAME')]) {
+                   sh 'ssh' $T09_USERNAME
+               }
+               withCredentials([string(credentialsId: 'T09_FRONTEND_PASS', variable: 'T09_PASS')]) {
+                    sh $T09_PASS
+               }
+               
+                 sh 'docker pull macsakarn/team-9-frontend:1.0.2'
+                 sh 'docker container run -d -p 9989:3000 macsakarn/team-9-frontend:1.0.2'
+            }
+        }
+    }
+     
   }
 }
