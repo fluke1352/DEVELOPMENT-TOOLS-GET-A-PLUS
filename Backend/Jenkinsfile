@@ -29,7 +29,11 @@ pipeline {
         }
         stage('Deployment') {
             steps {
-                echo 'TODO'
+                dir('Backend'){
+                    withCredentials([string(credentialsId: 'T09_BACKEND_USERNAME', variable: 'T09_USERNAME')]){
+                        echo "${T09_USERNAME}"
+                    }
+                }
             }
         }
     }
