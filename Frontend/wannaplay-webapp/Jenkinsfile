@@ -16,7 +16,7 @@ stages {
     stage('Run unit test') {
          steps {
                dir('Frontend/wannaplay-webapp') {
-                    sh 'docker compose'
+                    sh 'docker-compose'
                     sh 'npm run test'
                }
          }
