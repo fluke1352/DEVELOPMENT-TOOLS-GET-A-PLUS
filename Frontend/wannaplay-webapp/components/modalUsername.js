@@ -40,10 +40,10 @@ function ModalUsername() {
     //Check username yet?
     if (!getUsername) {
       handleModalOpen();
-    } 
-    // else {
-    //   handleModalClose();
-    // }
+    }
+    else {
+      handleModalClose();
+    }
   }, []);
 
   const Root = styled("Grid")(({ theme }) => ({}));
