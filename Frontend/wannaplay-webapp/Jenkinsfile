@@ -4,6 +4,7 @@ stages {
     stage('Pull code') {
         steps {
             checkout scm
+            echo 'buildimage'
         }
     }
     stage('Download dependency') {
