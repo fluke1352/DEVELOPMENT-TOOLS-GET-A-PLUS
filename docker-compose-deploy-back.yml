@@ -1,0 +1,7 @@
+version: "3"
+services:
+  frontend:
+    image: devtool09/team-9-backend:1.0.0
+    build: ./Backend
+    ports:
+      - "9989:8080"

@@ -1,0 +1,7 @@
+version: "3"
+services:
+  frontend:
+    image: devtool09/team-9-frontend:1.0.0
+    build: ./Frontend/wannaplay-webapp
+    ports:
+      - "9989:3000"
