@@ -4,7 +4,6 @@ stages {
     stage('Pull code') {
         steps {
             checkout scm
-            echo 'buildimage'
         }
     }
     stage('Download dependency') {
@@ -17,6 +16,7 @@ stages {
     stage('Run unit test') {
          steps {
                dir('Frontend/wannaplay-webapp') {
+                     echo 'run tesTT'
                     sh 'npm run test'
                }
          }
