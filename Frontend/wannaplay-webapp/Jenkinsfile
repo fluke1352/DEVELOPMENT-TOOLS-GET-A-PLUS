@@ -5,7 +5,7 @@ stages {
        steps {
            checkout scm
            withCredentials([string(credentialsId: 'T09_FRONTEND_PASS', variable: 'T09Pass')]) {
-                echo $ T09Pass
+               echo "${T09Pass}"
             }
        }
    }
