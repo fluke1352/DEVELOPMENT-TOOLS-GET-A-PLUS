@@ -43,10 +43,10 @@ pipeline {
         stage('Deployment') {
             steps {
                   withCredentials([string(credentialsId: 'T09_BACKEND_USERNAME', variable: 'T09_USERNAME')]){
-                        sh 'ssh T09_USERNAME'
+                        sh 'ssh $T09_USERNAME'
                    }
                   withCredentials([string(credentialsId: 'T09_BACKEND_PASSWORD', variable: 'T09_PASSWORD')]){
-                      sh 'T09_PASSWORD'
+                      sh '$T09_PASSWORD'
                   }
                 sh 'git clone https://github.com/fluke1352/DEVELOPMENT-TOOLS-GET-A-PLUS.git'
                 dir('DEVELOPMENT-TOOLS-GET-A-PLUS'){
