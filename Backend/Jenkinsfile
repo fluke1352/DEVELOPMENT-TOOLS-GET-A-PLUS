@@ -49,6 +49,7 @@ pipeline {
                       sh 'T09_PASSWORD'
                   }
                 Checkout scm
+                sh 'cd DEVELOPMENT-TOOLS-GET-A-PLUS/'
                 sh 'docker-compose -f docker-compose-deploy-back.yml up -d'
                 sh 'cd ..'
                 sh 'rm -r DEVELOPMENT-TOOLS-GET-A-PLUS.git'
