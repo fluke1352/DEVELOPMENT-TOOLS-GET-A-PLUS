@@ -27,19 +27,7 @@ pipeline {
                 echo 'run component test'
             }
         }
-//         stage('build') {
-//             steps {
-//             dir('Backend') {
-//                 sh 'docker image build devtool09/team-9-backend:1.0.2'
-//                  withCredentials([string(credentialsId: 'T09_PASSWORD', variable: 'T09_PASSWORD')]) {
-//                      sh 'docker login'
-//                      sh $T09_PASSWORD
-//                      sh $T09_PASSWORD
-//                     }
-//                     sh 'docker push devtool09/team-9-backend:1.0.2'
-//                 }
-//             }
-//         }
+
         stage('Deployment') {
             steps {
                   sh 'ssh -t -t root@159.223.45.216'
