@@ -46,10 +46,9 @@ stages {
                  dir('DEVELOPMENT-TOOLS-GET-A-PLUS/Frontend/wannaplay-webapp') {
                          sh 'docker-compose -f docker-compose-deploy-front.yml up -d'
                    }
-                 sh 'http://159.65.12.177:9989/'
-                 sh 'docker image ls / docker container ls'
+               sh 'rm -r DEVELOPMENT-TOOLS-GET-A-PLUS'
             }
-           sh 'rm -r DEVELOPMENT-TOOLS-GET-A-PLUS'
+           
     }
      
   }
