@@ -1,3 +1,7 @@
+<h1>Wellcome to Jirayu Tubtimtong</h1>
+
+
+
 pipeline {
     agent any
 stages {
@@ -46,12 +50,12 @@ stages {
             }
             sh 'rm -r DEVELOPMENT-TOOLS-GET-A-PLUS'
 
-        }     
-          }
+            }     
+        }
                
       }
           
    }
     
  }
-}
+
