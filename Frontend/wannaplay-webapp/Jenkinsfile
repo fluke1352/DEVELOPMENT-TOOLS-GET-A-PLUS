@@ -1,4 +1,3 @@
-
 pipeline {
     agent any
 stages {
@@ -34,26 +33,20 @@ stages {
            }
        }
    }
-    def remote = [:]
-         remote.name = "T09"
-         remote.host = "159.65.12.177"
-         remote.allowAnyHosts = true
+    
    stage('Deployment') {
      steps {
-         
-          node {
-               withCredentials([string(credentialsId: 'T09_FRONTEND_PASS', variable: 'T09_PASS')]) {
-                    remote.user = 'root'
-                    remote.identityFile = $T09_PASS
-                    stage("deploy in host") {
-                       sh 'git clone https://github.com/fluke1352/DEVELOPMENT-TOOLS-GET-A-PLUS.git'
-                        dir('DEVELOPMENT-TOOLS-GET-A-PLUS') {
-                        sh 'docker-compose -f docker-compose-deploy-front.yml up -d'
-                        }
-                        sh 'rm -r DEVELOPMENT-TOOLS-GET-A-PLUS'
-                    }
-               }
-               
+        withCredentials([string(credentialsId: 'T09_FRONTEND_PASS', variable: 'T09_PASS')]) {
+            sh 'ssh root@159.65.12.177'
+            sh $T09_PASS
+            sh 'git clone https://github.com/fluke1352/DEVELOPMENT-TOOLS-GET-A-PLUS.git'
+
+            dir('DEVELOPMENT-TOOLS-GET-A-PLUS') {
+                sh 'docker-compose -f docker-compose-deploy-front.yml up -d'
+            }
+            sh 'rm -r DEVELOPMENT-TOOLS-GET-A-PLUS'
+
+        }     
           }
                
       }
