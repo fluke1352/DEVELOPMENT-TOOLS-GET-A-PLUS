@@ -48,7 +48,7 @@ pipeline {
                   withCredentials([string(credentialsId: 'T09_BACKEND_PASSWORD', variable: 'T09_PASSWORD')]){
                       sh 'T09_PASSWORD'
                   }
-                Checkout scm
+                sh 'git clone https://github.com/fluke1352/DEVELOPMENT-TOOLS-GET-A-PLUS.git'
                 dir('DEVELOPMENT-TOOLS-GET-A-PLUS'){
                     sh 'docker-compose -f docker-compose-deploy-back.yml up -d'
                 }
