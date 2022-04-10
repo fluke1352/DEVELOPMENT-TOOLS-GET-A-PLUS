@@ -42,9 +42,9 @@ pipeline {
 //         }
         stage('Deployment') {
             steps {
-                  sshagent(credentialsId: ['T09_BACKEND_USERNAME']){
-                        sh 'ssh $T09_BACKEND_USERNAME'
-                   }
+                  withCredentials([string(credentialsId: 'T09_BACKEND_USERNAME', variable: 'T09_USERNAME')]){
+                      sh 'ssh -t -t $T09_USERNAME'
+                  }
                   withCredentials([string(credentialsId: 'T09_BACKEND_PASSWORD', variable: 'T09_PASSWORD')]){
                       sh '$T09_PASSWORD'
                   }
