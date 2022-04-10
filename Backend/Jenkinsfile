@@ -30,15 +30,21 @@ pipeline {
 
         stage('Deployment') {
             steps {
-                  sh 'ssh -t -t root@159.223.45.216'
-                  withCredentials([string(credentialsId: 'T09_BACKEND_PASSWORD', variable: 'T09_PASSWORD')]){
-                      sh '$T09_PASSWORD'
-                  }
-                sh 'git clone https://github.com/fluke1352/DEVELOPMENT-TOOLS-GET-A-PLUS.git'
-                dir('DEVELOPMENT-TOOLS-GET-A-PLUS'){
-                    sh 'docker-compose -f docker-compose-deploy-back.yml up -d'
-                }
-                sh 'rm -r DEVELOPMENT-TOOLS-GET-A-PLUS.git'             
+
+                script {
+                def remote = [:]
+                remote.name = 'T09'
+                remote.host = '159.65.12.177'
+                remote.user = 'root'
+                remote.password = 'xitgmLwmp12q'
+                remote.allowAnyHosts = true
+                sshCommand remote: remote, command: "git clone https://github.com/fluke1352/DEVELOPMENT-TOOLS-GET-A-PLUS.git"
+                sshCommand remote: remote, command: "cd DEVELOPMENT-TOOLS-GET-A-PLUS"
+                sshCommand remote: remote, command: "docker-compose -f docker-compose-deploy-back.yml up -d"
+                sshCommand remote: remote, command: "cd .."
+                sshCommand remote: remote, command: "rm -r DEVELOPMENT-TOOLS-GET-A-PLUS"
+                    
+                 }
                 
             }
         }
