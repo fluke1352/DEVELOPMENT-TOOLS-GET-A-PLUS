@@ -36,15 +36,18 @@ stages {
     
    stage('Deployment') {
         steps{
-            script {
+            withCredentials([string(credentialsId: 'T09_FRONTEND_PASS', variable: 'T09_PASS')]) {
+                script {
                 def remote = [:]
                 remote.name = 'test'
                 remote.host = '159.65.12.177'
                 remote.user = 'root'
-                remote.password = 'xitgmLwmp12q'
+                remote.password = $T09_PASS
                 remote.allowAnyHosts = true
                 sshCommand remote: remote, command: "ls -lrt"
             }
+            }
+            
         }       
       }
           
