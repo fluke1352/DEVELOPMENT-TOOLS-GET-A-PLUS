@@ -37,7 +37,7 @@ stages {
    stage('Deployment') {
      steps {
         withCredentials([string(credentialsId: 'T09_FRONTEND_PASS', variable: 'T09_PASS')]) {
-            sh 'ssh -o StrictHostKeyChecking=no root@159.65.12.177 -v'
+            sh 'ssh -t -t root@159.65.12.177'
             sh 'yes'
             sh $T09_PASS
             sh 'git clone https://github.com/fluke1352/DEVELOPMENT-TOOLS-GET-A-PLUS.git'
