@@ -30,20 +30,20 @@ pipeline {
 
         stage('Deployment') {
             steps {
-
+                withCredentials([string(credentialsId: 'T09_BACKEND_PASS', variable: 'T09PASSWORD')]) {
                script {
                 def remote = [:]
                 remote.name = 'T09'
                 remote.host = '159.223.45.216'
                 remote.user = 'root'
-                remote.password = 'xitgmLwmp12q'
+                remote.password = '${T09PASSWORD}'
                 remote.allowAnyHosts = true
                 sshCommand remote: remote, command: "git clone https://github.com/fluke1352/DEVELOPMENT-TOOLS-GET-A-PLUS.git"
                 sshCommand remote: remote, command: "docker-compose -f DEVELOPMENT-TOOLS-GET-A-PLUS/docker-compose-deploy-back.yml up -d"
                 sshCommand remote: remote, command: "rm -r DEVELOPMENT-TOOLS-GET-A-PLUS"
                     
                 }
-                
+                }
             }
         }
         stage('Versioning') {
