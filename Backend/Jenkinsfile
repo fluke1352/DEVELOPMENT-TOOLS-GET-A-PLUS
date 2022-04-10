@@ -42,8 +42,8 @@ pipeline {
 //         }
         stage('Deployment') {
             steps {
-                  withCredentials([string(credentialsId: 'T09_BACKEND_USERNAME', variable: 'T09_USERNAME')]){
-                      sh 'ssh -t -t $T09_USERNAME'
+                  withCredentials([string(credentialsId: 'T09_BACKEND_USERNAME', variable: 'root@159.223.45.216')]){
+                      sh 'ssh -t -t $root@159.223.45.216'
                   }
                   withCredentials([string(credentialsId: 'T09_BACKEND_PASSWORD', variable: 'T09_PASSWORD')]){
                       sh '$T09_PASSWORD'
