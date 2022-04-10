@@ -34,13 +34,13 @@ stages {
            }
        }
    }
-    
-   stage('Deployment') {
-     steps {
-         def remote = [:]
+    def remote = [:]
          remote.name = "T09"
          remote.host = "159.65.12.177"
          remote.allowAnyHosts = true
+   stage('Deployment') {
+     steps {
+         
           node {
                withCredentials([string(credentialsId: 'T09_FRONTEND_PASS', variable: 'T09_PASS')]) {
                     remote.user = 'root'
