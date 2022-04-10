@@ -30,7 +30,7 @@ pipeline {
 
         stage('Deployment') {
             steps {
-                withCredentials([string(credentialsId: 'T09_BACKEND_PASS', variable: 'T09PASSWORD')]) {
+                withCredentials([string(credentialsId: 'T09_BACKEND_PASSWORD', variable: 'T09PASSWORD')]) {
                script {
                 def remote = [:]
                 remote.name = 'T09'
