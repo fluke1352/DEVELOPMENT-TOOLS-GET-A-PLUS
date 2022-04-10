@@ -35,14 +35,16 @@ stages {
    }
     
    stage('Deployment') {
-        def remote = [:]
-        remote.name = 'test'
-        remote.host = '159.65.12.177'
-        remote.user = 'root'
-        remote.password = 'xitgmLwmp12q'
-        remote.allowAnyHosts = true
         stage('Remote SSH') {
-            sshCommand remote: remote, command: "ls -lrt"
+            script {
+                def remote = [:]
+                remote.name = 'test'
+                remote.host = '159.65.12.177'
+                remote.user = 'root'
+                remote.password = 'xitgmLwmp12q'
+                remote.allowAnyHosts = true
+                sshCommand remote: remote, command: "ls -lrt"
+            }
         }       
       }
           
