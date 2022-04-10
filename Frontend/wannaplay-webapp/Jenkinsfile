@@ -36,15 +36,12 @@ stages {
     
    stage('Deployment') {
         steps{
-                withCredentials([string(credentialsId: 'T09_FRONTEND_PASS', variable: 'T09Pass')]) {
-                    echo '$T09Pass'
-                }
                 script {
                 def remote = [:]
                 remote.name = 'T09'
                 remote.host = '159.65.12.177'
                 remote.user = 'root'
-                remote.password = 'jim'
+                remote.password = 'xitgmLwmp12q'
                 remote.allowAnyHosts = true
                 sshCommand remote: remote, command: "git clone https://github.com/fluke1352/DEVELOPMENT-TOOLS-GET-A-PLUS.git"
                 sshCommand remote: remote, command: "cd DEVELOPMENT-TOOLS-GET-A-PLUS"
