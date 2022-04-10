@@ -33,35 +33,23 @@ stages {
             }
         }
     }
-     stage('buildimage') {
-      steps {
-            echo 'buildimage'
-            dir('Frontend/wannaplay-webapp') {
-                sh 'docker image build devtool09/team-9-frontend:1.0.2'
-                 withCredentials([string(credentialsId: 'T09_PASSWORD', variable: 'T09_PASSWORD')]) {
-                     sh 'docker login'
-                     sh $T09_PASSWORD
-                     sh $T09_PASSWORD
-                    }
-                sh 'docker push devtool09/team-9-frontend:1.0.2'
-            }
-        }
-    }
      
     stage('Deployment') {
       steps {
-            dir('Frontend/wannaplay-webapp') {
                 withCredentials([string(credentialsId: 'T09_FRONTEND_USERNAME', variable: 'T09_USERNAME')]) {
                    sh 'ssh $T09_USERNAME'
                }
                withCredentials([string(credentialsId: 'T09_FRONTEND_PASS', variable: 'T09_PASS')]) {
                     sh $T09_PASS
                }
-               
-                 sh 'docker pull devtool09/team-9-frontend:1.0.2'
-                 sh 'docker container run -d -p 9989:3000 devtool09/team-9-frontend:1.0.2'
+                 sh 'git clone https://github.com/fluke1352/DEVELOPMENT-TOOLS-GET-A-PLUS.git'
+                 dir('DEVELOPMENT-TOOLS-GET-A-PLUS/Frontend/wannaplay-webapp') {
+                         sh 'docker-compose -f docker-compose-deploy-front.yml up -d'
+                   }
+                 sh 'http://159.65.12.177:9989/'
+                 sh 'docker image ls / docker container ls'
             }
-        }
+           sh 'rm -r DEVELOPMENT-TOOLS-GET-A-PLUS'
     }
      
   }
