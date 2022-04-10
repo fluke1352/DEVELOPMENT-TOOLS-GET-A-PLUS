@@ -1,7 +1,3 @@
-<h1>Wellcome to Jirayu Tubtimtong</h1>
-
-
-
 pipeline {
     agent any
 stages {
