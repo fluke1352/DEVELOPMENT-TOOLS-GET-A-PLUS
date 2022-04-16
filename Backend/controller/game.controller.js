@@ -1,13 +1,12 @@
-import GameModel from "../models/game.model"
+import GameModel from "../models/game.model.js"
 
 const fetchGameInfo = async (req, res) => {
     try {
-        const allGame = GameModel.find()
+        const allGame = await GameModel.find()
         res.status(200).json(allGame)
     }
     catch (err) {
-        res.status(500).json({ error : err })
+        res.status(500).json({ error : "something went wrong" })
     }
 }
-
 export default { fetchGameInfo }
