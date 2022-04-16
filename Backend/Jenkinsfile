@@ -30,12 +30,12 @@ pipeline {
 
         stage('Deployment') {
             steps {
-                withCredentials([string(credentialsId: 'T09_FRONTEND_PASS', variable: 'T09Pass')]) {
+                withCredentials([string(credentialsId: 'T09_host', variable: 'T09Host'), string(credentialsId: 'T09_FRONTEND_USERNAME', variable: 'T09Username'), string(credentialsId: 'T09_FRONTEND_PASS', variable: 'T09Pass')]) {
                script {
                 def remote = [:]
                 remote.name = 'T09'
-                remote.host = '159.223.45.216'
-                remote.user = 'root'
+                remote.host = "${T09Host}"
+                remote.user = "${T09Username}"
                 remote.password = "${T09Pass}"
                 remote.allowAnyHosts = true
                 sshCommand remote: remote, command: "git clone https://github.com/fluke1352/DEVELOPMENT-TOOLS-GET-A-PLUS.git"
