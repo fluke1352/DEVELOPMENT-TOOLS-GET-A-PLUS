@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import UsernameAction from "../store/usernameAction";
-
+import Backdrop from '@mui/material/Backdrop';
 import Modal from "@mui/material/Modal";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -40,8 +40,7 @@ function ModalUsername() {
     //Check username yet?
     if (!getUsername) {
       handleModalOpen();
-    }
-    else {
+    } else {
       handleModalClose();
     }
   }, []);
@@ -60,6 +59,7 @@ function ModalUsername() {
     padding: "20px",
   };
 
+
   return (
     <div>
       <Modal
@@ -68,6 +68,7 @@ function ModalUsername() {
         onClose={handleModalClose}
         aria-labelledby="keep-mounted-modal-title"
         fullWidth
+        
       >
         <Box component="form">
           <Root container sx={styleModal}>
@@ -128,5 +129,6 @@ function ModalUsername() {
       </Modal>
     </div>
   );
+
 }
 export default ModalUsername;
