@@ -26,8 +26,7 @@ export default function Topbar() {
   const getUsrname = useSelector((state) => state.get_username.username);
 
   return (
-    <Box
-      fullWidth
+    <Box     
       sx={{
         display: "flex",
         flexDirection: "column",
