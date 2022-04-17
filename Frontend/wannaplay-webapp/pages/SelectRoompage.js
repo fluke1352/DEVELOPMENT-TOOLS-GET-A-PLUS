@@ -7,24 +7,15 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import { CardActionArea } from "@mui/material";
-import { styled } from "@mui/material/styles";
 // import Button from "@mui/material/Button";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-import Alert from "@mui/material/Alert";
-import Stack from "@mui/material/Stack";
+
 
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import { bgcolor } from "@mui/system";
 import AddIcon from "@mui/icons-material/Add";
-
-import ImageList from "@mui/material/ImageList";
-import ImageListItem from "@mui/material/ImageListItem";
 
 export default function SelectRoompage(query) {
   const [gameName, setGameName] = useState("Valorant");
@@ -97,7 +88,7 @@ export default function SelectRoompage(query) {
 
     return (
       <Grid
-        item
+        item={true}
         key={index + "" + data.roomSize}
         xs={12}
         sm={6}
@@ -106,7 +97,6 @@ export default function SelectRoompage(query) {
         sx={{ borderRadius: 4 }}
       >
         <Card
-          fullWidth
           sx={{
             borderRadius: 5,
             border: 1,
@@ -123,7 +113,6 @@ export default function SelectRoompage(query) {
             <CardContent sx={{ backgroundColor: "#22272E", color: "white" }}>
               {/* Room name */}
               <Box
-                fullWidth
                 sx={{
                   display: "flex",
                   justifyContent: "space-between",
@@ -152,7 +141,6 @@ export default function SelectRoompage(query) {
               </Box>
               {/* Number users in room */}
               <Box
-                fullWidth
                 sx={{
                   display: "grid",
                   m: 1,
@@ -194,7 +182,6 @@ export default function SelectRoompage(query) {
         <Grid item xs={12} sm={6} md={6} lg={6} sx={{ borderRadius: 4 }}>
           <Grid
             container
-            fullWidth
             sx={
               {
                 // borderRadius: 3,
@@ -231,7 +218,6 @@ export default function SelectRoompage(query) {
         {/* Create new room card */}
         <Grid item xs={12} sm={6} md={6} lg={6} sx={{ borderRadius: 4 }}>
           <Card
-            fullWidth
             sx={{
               borderRadius: 3,
               border: 1,

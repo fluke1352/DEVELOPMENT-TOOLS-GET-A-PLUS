@@ -37,7 +37,7 @@ function MyApp({ Component, pageProps }) {
           />
         </Head>
 
-        <Topbar></Topbar>
+        <Topbar/>
         <Component {...pageProps} />
       </Provider>
     </>

@@ -66,7 +66,6 @@ function ModalUsername() {
         open={modal_is_open}
         onClose={handleModalClose}
         aria-labelledby="keep-mounted-modal-title"
-        fullWidth
       >
         <Box component="form">
           <Root container sx={styleModal}>
@@ -93,7 +92,6 @@ function ModalUsername() {
                 <Input
                   id="input_username"
                   type="text"
-                  fullWidth
                   required
                   style={{
                     backgroundColor: "#2D333B",

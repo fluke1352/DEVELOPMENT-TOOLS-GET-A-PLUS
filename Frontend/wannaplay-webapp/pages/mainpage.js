@@ -36,6 +36,7 @@ export default function Home() {
         const response = await axios.get(
           "https://wannaplay-world-chat.herokuapp.com/api/game"
         );
+        console.log(response)
         setGameData(response.data);
         setGames(response.data);
         setIsLoading(false);
@@ -105,12 +106,11 @@ export default function Home() {
 
   //Cards of game that availability
   const CardsGame = games.map((data, index) => (
-    <Grid item xs={6} sm={4} md={3} lg={2.4} key={index}>
+    <Grid item={true} xs={6} sm={4} md={3} lg={2.4} key={index}>
       <Card
         sx={{ maxWidth: "100%", borderRadius: 3, borderColor: "primary.main" }}
         onClick={() => {
           // router.push("/SelectRoompage.js");
-          const gamename = "VALORANT";
           router.push({
             pathname: "/SelectRoompage",
             // query: { gameName: gamename },
@@ -121,8 +121,7 @@ export default function Home() {
           <CardMedia
             component="img"
             height="290px"
-            maxWidth="100%"
-            objectFit="cover"
+            
             image={data.img_url}
           />
           <CardContent sx={{ backgroundColor: "#2D333B" }}>
@@ -160,7 +159,6 @@ export default function Home() {
           value={inputGameName}
           onChange={handleSearchGame}
           placeholder="Search game"
-          fullWidth
           style={{
             backgroundColor: "#FFF",
             borderRadius: 10,
@@ -174,7 +172,6 @@ export default function Home() {
           }}
         />
         <FormControl
-          fullWidth
           style={{
             backgroundColor: "#FFF",
             borderRadius: 10,
@@ -215,15 +212,11 @@ export default function Home() {
       </Box>
       <Grid container spacing={4}>
         {isLoading ? (
-          <>
-            <Grid
-              sx={{ textAlign: "center", alignItems: "center" }}
-              item
-              lg={12}
+            <div
+              style={{display:"flex",alignItems:"center",justifyContent:"center", width:"100%"}}
             >
               <h1>Loading . . .</h1>
-            </Grid>
-          </>
+            </div>
         ) : (
           CardsGame
         )}
