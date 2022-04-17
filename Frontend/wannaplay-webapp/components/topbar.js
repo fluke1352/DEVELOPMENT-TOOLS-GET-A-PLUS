@@ -37,7 +37,8 @@ export default function Topbar() {
         position:"fixed",
         width:"100vw",
         top:0,
-        maxHeight:"10%"
+        maxHeight:"10%",
+        zIndex:999
       }}
     >
       {/* Show USERNAME */}
