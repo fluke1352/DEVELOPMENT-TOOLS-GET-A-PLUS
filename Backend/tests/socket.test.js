@@ -20,7 +20,7 @@ afterAll((done) => {
 });
 
 beforeEach((done) => {
-    clientSocket = new io('http://localhost:8081/world_chat');
+    clientSocket = new io('http://localhost:9987/world_chat');
     clientSocket.emit('join', { username : "takai" });
     done();
 })
