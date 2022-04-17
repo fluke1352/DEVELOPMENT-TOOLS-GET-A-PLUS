@@ -6,6 +6,7 @@ import buildChatSocketClass from "./utils/WebSocketClass.js";
 import configs from "./constants/mongoConfigs.js";
 import mongoose from "mongoose"
 import gameRoutes from "./routes/game.route.js"
+import cors from "cors"
 
 mongoose.Promise = global.Promise 
 mongoose.connect(configs.mongouri, {
@@ -20,7 +21,8 @@ mongoose.connection.on('error', () => {
 
 // Server side socket.io connection code
 const server = express();
-server.use('/', gameRoutes)
+server.use(cors());
+server.use('/', gameRoutes);
 const httpServer = createServer(server);
 
 // Build new Socket Class
