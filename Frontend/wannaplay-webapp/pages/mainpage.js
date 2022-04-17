@@ -36,7 +36,6 @@ export default function Home() {
         const response = await axios.get(
           "https://wannaplay-world-chat.herokuapp.com/api/game"
         );
-        console.log(response)
         setGameData(response.data);
         setGames(response.data);
         setIsLoading(false);
