@@ -120,7 +120,7 @@ export default function Chats() {
         justifyContent: "center",
         color: "#ffffff",
         maxHeight: "90%",
-        overflow: "auto"
+        overflow: "auto",
       }}
     >
       <Container
@@ -132,7 +132,10 @@ export default function Chats() {
           p: 5,
         }}
       >
-        <Box id="allchats" sx={{ overflowY: "scroll", marginTop:"50px", height:"75vh"}}>
+        <Box
+          id="allchats"
+          sx={{ overflowY: "scroll", marginTop: "50px", height: "75vh" }}
+        >
           {textArr
             ? textArr.map((messages, index) => {
                 return (

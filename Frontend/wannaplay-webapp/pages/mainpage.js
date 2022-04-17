@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useSelector, useDispatch } from "react-redux";
-
 import ModalUsername from "../components/modalUsername";
+
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -16,8 +15,6 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { styled } from "@mui/material/styles";
-import Link from "next/link";
 
 export default function Home() {
   const [inputGameName, setInputGameName] = useState("");
@@ -108,12 +105,11 @@ export default function Home() {
 
   //Cards of game that availability
   const CardsGame = games.map((data, index) => (
-    <Grid item xs={6} sm={4} md={3} lg={2.4} key={index}>
+    <Grid item={true} xs={6} sm={4} md={3} lg={2.4} key={index}>
       <Card
         sx={{ maxWidth: "100%", borderRadius: 3, borderColor: "primary.main" }}
         onClick={() => {
           // router.push("/SelectRoompage.js");
-          const gamename = "VALORANT";
           router.push({
             pathname: "/SelectRoompage",
             // query: { gameName: gamename },
@@ -124,8 +120,7 @@ export default function Home() {
           <CardMedia
             component="img"
             height="290px"
-            maxWidth="100%"
-            objectFit="cover"
+            
             image={data.img_url}
           />
           <CardContent sx={{ backgroundColor: "#2D333B" }}>
@@ -163,7 +158,6 @@ export default function Home() {
           value={inputGameName}
           onChange={handleSearchGame}
           placeholder="Search game"
-          fullWidth
           style={{
             backgroundColor: "#FFF",
             borderRadius: 10,
@@ -177,7 +171,6 @@ export default function Home() {
           }}
         />
         <FormControl
-          fullWidth
           style={{
             backgroundColor: "#FFF",
             borderRadius: 10,
@@ -218,15 +211,11 @@ export default function Home() {
       </Box>
       <Grid container spacing={4}>
         {isLoading ? (
-          <>
-            <Grid
-              sx={{ textAlign: "center", alignItems: "center" }}
-              item
-              lg={12}
+            <div
+              style={{display:"flex",alignItems:"center",justifyContent:"center", width:"100%"}}
             >
               <h1>Loading . . .</h1>
-            </Grid>
-          </>
+            </div>
         ) : (
           CardsGame
         )}
