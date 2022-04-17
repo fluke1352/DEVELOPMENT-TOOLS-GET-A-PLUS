@@ -1,0 +1,60 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Pull code') {
+            steps {
+               checkout scm
+            }
+        }
+        stage('Download dependency') {
+            steps {
+                 dir('Backend') {
+                    sh 'npm install'
+                }
+            }
+        }
+        stage('Run unit test') {
+            steps {
+                dir('Backend') {
+                   sh 'npm run test'
+                }
+                
+            }
+        }
+        stage('Run Integration test') {
+            steps {
+                echo 'run component test'
+            }
+        }
+
+        stage('Deployment') {
+            steps {
+                withCredentials([string(credentialsId: 'T09_host', variable: 'T09Host'), string(credentialsId: 'T09_FRONTEND_USERNAME', variable: 'T09Username'), string(credentialsId: 'T09_FRONTEND_PASS', variable: 'T09Pass')]) {
+               script {
+                def remote = [:]
+                remote.name = 'T09'
+                remote.host = "${T09Host}"
+                remote.user = "${T09Username}"
+                remote.password = "${T09Pass}"
+                remote.allowAnyHosts = true
+                sshCommand remote: remote, command: "git clone https://github.com/fluke1352/DEVELOPMENT-TOOLS-GET-A-PLUS.git"
+                sshCommand remote: remote, command: "docker-compose -f DEVELOPMENT-TOOLS-GET-A-PLUS/docker-compose-deploy-back.yml up -d"
+                sshCommand remote: remote, command: "rm -r DEVELOPMENT-TOOLS-GET-A-PLUS"
+                    
+                
+                }
+                }
+            }
+        }
+        stage('Versioning') {
+            steps {
+               withCredentials([gitUsernamePassword(credentialsId: 'devtool9', gitToolName: 'Default')]) {
+                    sh 'git tag ' + 'v1.0.' + BUILD_NUMBER
+                    sh 'git tag'
+                    sh 'git push origin ' + 'v1.0.' + BUILD_NUMBER
+               }
+            }
+        }
+    }
+}

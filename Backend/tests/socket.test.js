@@ -10,7 +10,7 @@ beforeAll((done) => {
     httpServer = createServer();
     ios = new Server(httpServer);
     serverSocket = buildChatSocketClass(ios);
-    httpServer.listen(8081);
+    httpServer.listen(9987);
     done();
 });
 
@@ -20,7 +20,7 @@ afterAll((done) => {
 });
 
 beforeEach((done) => {
-    clientSocket = new io('http://localhost:8081/world_chat');
+    clientSocket = new io('http://localhost:9987/world_chat');
     clientSocket.emit('join', { username : "takai" });
     done();
 })
