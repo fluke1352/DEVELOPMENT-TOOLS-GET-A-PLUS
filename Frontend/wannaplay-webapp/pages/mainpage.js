@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
-import mockData from "../components/mockdata.json";
-import ModalUsername from "../components/modalUsername";
 
+import ModalUsername from "../components/modalUsername";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -12,45 +12,99 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { CardActionArea } from "@mui/material";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 import { styled } from "@mui/material/styles";
 import Link from "next/link";
 
 export default function Home() {
   const [inputGameName, setInputGameName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [gameData, setGameData] = useState([]);
   const [games, setGames] = useState([]);
-  const [allGame, setAllGame] = useState([]);
-  const [err, setErr] = useState(false);
+  const [category, setCategory] = useState("");
   const router = useRouter();
+
+  useEffect(() => {
+    getGames();
+  }, [inputGameName, category]);
 
   //Fetch games data
   async function getGames() {
     try {
       setIsLoading(true);
-      // This code comment to waiting for API get GameData ------------
-      // if(inputGameName.length < 1 && games === null){
-      // let res = await fetch("https://jsonplaceholder.typicode.com/users");
-      // let data = await res.json();
-      // setGames(data);
-      // }
-      if (inputGameName.length < 1) {
-        setGames(mockData);
-        setAllGame(mockData);
+      if (inputGameName.length < 1 && gameData.length < 1) {
+        const response = await axios.get(
+          "https://wannaplay-world-chat.herokuapp.com/api/game"
+        );
+        setGameData(response.data);
+        setGames(response.data);
         setIsLoading(false);
-      } else if (inputGameName.length > 0) {
-        const filteredCharacters = allGame.filter((character) => {
-          const gameNameLower = character.name.toLowerCase();
-          const InputGameNameLower = inputGameName.toLowerCase();
-          return gameNameLower.includes(InputGameNameLower);
-        });
-        setGames(filteredCharacters);
+      } else if (
+        category !== "" &&
+        inputGameName.length < 1 &&
+        category !== "All"
+      ) {
+        console.log("filter category");
+        setGames(filterByCategory());
+        setIsLoading(false);
+      } else if (inputGameName.length < 1 && gameData.length > 0) {
+        setGames(gameData);
+        setIsLoading(false);
+      } else if (inputGameName.length > 0 && gameData.length > 0) {
+        console.log("serching");
+        setCategory("All");
+        setGames(filterByName(filterByCategory()));
         setIsLoading(false);
       }
-    } catch (e) {
-      setErr(true);
-      setErr(e);
+    } catch (error) {
+      console.log(error);
     }
   }
+
+  //Filter by Name
+  const filterByName = (filtered) => {
+    if (filtered !== null) {
+      const filteredCharacters = filtered.filter((data) => {
+        const gameNameLower = data.name.toLowerCase();
+        const InputGameNameLower = inputGameName.toLowerCase();
+        return gameNameLower.includes(InputGameNameLower);
+      });
+      return filteredCharacters;
+    } else {
+      const filteredCharacters = gameData.filter((data) => {
+        const gameNameLower = data.name.toLowerCase();
+        const InputGameNameLower = inputGameName.toLowerCase();
+        return gameNameLower.includes(InputGameNameLower);
+      });
+      return filteredCharacters;
+    }
+  };
+
+  //Filter by Category
+  const filterByCategory = () => {
+    if (category === "All") {
+      return gameData;
+    } else {
+      const filteredGame = gameData.filter((data) => {
+        const gameCatagory = data.category;
+        const selectCatagory = category;
+        return gameCatagory.includes(selectCatagory);
+      });
+      return filteredGame;
+    }
+  };
+
+  //Set stage inputGameName for Searching game
+  const handleSearchGame = (event) => {
+    setInputGameName(event.target.value);
+  };
+
+  const handleChangeCategory = (event) => {
+    setCategory(event.target.value);
+  };
 
   //Cards of game that availability
   const CardsGame = games.map((data, index) => (
@@ -66,7 +120,6 @@ export default function Home() {
           });
         }}
       >
-        {/* <Link href="https://www.facebook.com/"> */}
         <CardActionArea>
           <CardMedia
             component="img"
@@ -91,43 +144,66 @@ export default function Home() {
     </Grid>
   ));
 
-  //Set stage inputGameName for Searching game
-  const handleSearchGame = (event) => {
-    setInputGameName(event.target.value);
-  };
-
-  useEffect(() => {
-    getGames();
-  }, [inputGameName]);
-
   return (
     <Container maxWidth="lg" sx={{ my: "5vh" }}>
       {/* Modal */}
       <ModalUsername />
 
       {/* Search bar*/}
-      <from>
-        <Box display="flex" flexDirection="row" justifyContent="center">
-          <input
-            id="game_name"
-            type="text"
-            value={inputGameName}
-            onChange={handleSearchGame}
-            placeholder="Search game"
-            style={{
-              backgroundColor: "#FFF",
-              borderRadius: 10,
-              color: "gray",
-              width: "60%",
-              border: "none",
-              padding: 10,
-              fontSize: "1.2rem",
-              height: "4vh",
-              textAlign: "center",
-            }}
-          />
-        </Box>
-      </from>
+      {/* <form> */}
+      <Box
+        display="flex"
+        flexDirection="row"
+        justifyContent="center"
+        alignItems={"center"}
+      >
+        <input
+          id="game_name"
+          type="text"
+          value={inputGameName}
+          onChange={handleSearchGame}
+          placeholder="Search game"
+          fullWidth
+          style={{
+            backgroundColor: "#FFF",
+            borderRadius: 10,
+            color: "gray",
+            width: "60%",
+            border: "none",
+            padding: 10,
+            fontSize: "1.2rem",
+            height: "4vh",
+            textAlign: "center",
+          }}
+        />
+        <FormControl
+          fullWidth
+          style={{
+            backgroundColor: "#FFF",
+            borderRadius: 10,
+            color: "gray",
+            width: "12%",
+            textAlign: "center",
+            marginLeft: 10,
+          }}
+        >
+          <InputLabel id="select-category-label">Category</InputLabel>
+          <Select
+            labelId="select-category-label"
+            id="select-category"
+            value={category}
+            label="Category"
+            onChange={handleChangeCategory}
+          >
+            <MenuItem value={"All"}>All</MenuItem>
+            <MenuItem value={"FPS"}>FPS</MenuItem>
+            <MenuItem value={"Open World"}>Open World</MenuItem>
+            <MenuItem value={"MOBA"}>MOBA</MenuItem>
+            <MenuItem value={"MMORPG"}>MMORPG</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
+      {/* </form> */}
 
       {/* Card: Show game list*/}
       <Box

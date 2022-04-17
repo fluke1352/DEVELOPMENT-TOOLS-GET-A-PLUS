@@ -34,6 +34,10 @@ export default function Topbar() {
         justifyContent: "center",
         alignItems: "center",
         bgcolor: "#2D333B",
+        position:"fixed",
+        width:"100vw",
+        top:0,
+        maxHeight:"10%"
       }}
     >
       {/* Show USERNAME */}

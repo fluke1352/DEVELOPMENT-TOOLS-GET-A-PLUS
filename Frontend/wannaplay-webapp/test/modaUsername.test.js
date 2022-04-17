@@ -31,8 +31,6 @@ function renderWithRedux(
   };
 }
 
-// let getUsername = ''
-
 describe("Modal input Test", () => {
   it("Test: modal have InputBox and Button.", () => {
     renderWithRedux(<ModalUsername />);
@@ -41,7 +39,6 @@ describe("Modal input Test", () => {
   });
   it("Test: input username and Show username to all page on topbar", () => {
     renderWithRedux(<ModalUsername />);
-    // getUsername = Username_test
     userEvent.type(
       screen.getByLabelText(/Input your username/i),
       "Username_test"
