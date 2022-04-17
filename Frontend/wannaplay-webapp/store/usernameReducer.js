@@ -1,5 +1,5 @@
 const initialState = {
-  username: "Username_test",
+  username: "",
 };
 
 const inputReducer = (state = initialState, action) => {

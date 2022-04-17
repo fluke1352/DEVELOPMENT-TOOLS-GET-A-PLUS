@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import UsernameAction from "../store/usernameAction";
-
+import Backdrop from "@mui/material/Backdrop";
 import Modal from "@mui/material/Modal";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -40,10 +40,9 @@ function ModalUsername() {
     //Check username yet?
     if (!getUsername) {
       handleModalOpen();
-    } 
-    // else {
-    //   handleModalClose();
-    // }
+    } else {
+      handleModalClose();
+    }
   }, []);
 
   const Root = styled("Grid")(({ theme }) => ({}));
