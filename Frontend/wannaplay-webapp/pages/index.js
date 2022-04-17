@@ -19,7 +19,7 @@ import inputReducer from "../store/usernameReducer";
 export default function Home() {
   // const router = useRouter();
   return (
-    <div>
+    <div style={{marginTop:100}}>
         <Mainpage />
         {/* <SelectRoompage/> */}
     </div>

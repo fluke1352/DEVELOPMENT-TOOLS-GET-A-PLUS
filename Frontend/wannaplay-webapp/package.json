@@ -10,7 +10,10 @@
   },
   "jest": {
     "collectCoverage": true,
-    "coverageReporters": ["json", "html"]
+    "coverageReporters": [
+      "json",
+      "html"
+    ]
   },
   "dependencies": {
     "@emotion/react": "^11.7.1",
@@ -19,6 +22,7 @@
     "@mui/material": "^5.4.0",
     "@mui/styled-engine-sc": "^5.3.0",
     "@reduxjs/toolkit": "^1.8.0",
+    "axios": "^0.26.1",
     "next": "^12.0.10",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
