@@ -44,14 +44,12 @@ export default function Home() {
         inputGameName.length < 1 &&
         category !== "All"
       ) {
-        console.log("filter category");
         setGames(filterByCategory());
         setIsLoading(false);
       } else if (inputGameName.length < 1 && gameData.length > 0) {
         setGames(gameData);
         setIsLoading(false);
       } else if (inputGameName.length > 0 && gameData.length > 0) {
-        console.log("serching");
         setCategory("All");
         setGames(filterByName(filterByCategory()));
         setIsLoading(false);
@@ -109,20 +107,14 @@ export default function Home() {
       <Card
         sx={{ maxWidth: "100%", borderRadius: 3, borderColor: "primary.main" }}
         onClick={() => {
-          // router.push("/SelectRoompage.js");
           router.push({
             pathname: "/SelectRoompage",
-            // query: { gameName: gamename },
+            query: { data: JSON.stringify(data)}
           });
         }}
       >
         <CardActionArea>
-          <CardMedia
-            component="img"
-            height="290px"
-            
-            image={data.img_url}
-          />
+          <CardMedia component="img" height="290px" image={data.img_url} />
           <CardContent sx={{ backgroundColor: "#2D333B" }}>
             <Typography
               variant="h7"
@@ -211,11 +203,16 @@ export default function Home() {
       </Box>
       <Grid container spacing={4}>
         {isLoading ? (
-            <div
-              style={{display:"flex",alignItems:"center",justifyContent:"center", width:"100%"}}
-            >
-              <h1>Loading . . .</h1>
-            </div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "100%",
+            }}
+          >
+            <h1>Loading . . .</h1>
+          </div>
         ) : (
           CardsGame
         )}

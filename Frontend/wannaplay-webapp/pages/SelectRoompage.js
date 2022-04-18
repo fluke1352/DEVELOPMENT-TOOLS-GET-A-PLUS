@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
+import { useRouter } from "next/router";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -11,20 +11,18 @@ import { CardActionArea } from "@mui/material";
 // import Button from "@mui/material/Button";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 
-
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import AddIcon from "@mui/icons-material/Add";
 
-export default function SelectRoompage(query) {
-  const [gameName, setGameName] = useState("Valorant");
-  const [gameDescript, setGameDescript] = useState(
-    "Blend your style and experience on a global, competitive stage. You have 13 rounds to attack and defend your side using sharp gunplay and tactical abilities. And, with one life."
-  );
-  const [gameBanner, setGameBanner] = useState(
-    "https://via.placeholder.com/180x250"
-  );
+export default function SelectRoompage() {
+  const router = useRouter();
+  const {
+    query: { data },
+  } = router;
+  const props = { data };
+  const [gameData, setGameData] = useState(JSON.parse(props.data));
 
   //Mock up rooms data
   const obj = [
@@ -194,23 +192,22 @@ export default function SelectRoompage(query) {
             {/* Picture game banner */}
             <Grid item xs={6} sm={5} md={4} lg={4} sx={{}}>
               <img
-                src={gameBanner}
-                srcSet={gameBanner}
+                src={gameData.img_url}
+                srcSet={gameData.img_url}
                 // alt={item.title}
                 loading="lazy"
                 height="270vh"
                 width="100%"
-                objectFit="cover"
+                // objectFit="cover"
               />
             </Grid>
             {/* Game name and Description */}
-            {console.log(query.gameName + "!!!!")}
             <Grid item xs={6} sm={7} md={8} lg={8} my={2}>
               <Typography variant="h5" mb={2} fontWeight={"20px"}>
-                {gameName}
+                {gameData.name}
               </Typography>
               <Typography variant="p" fontSize={"1rem"}>
-                {gameDescript}
+                {gameData.description}
               </Typography>
             </Grid>
           </Grid>
