@@ -1,43 +1,38 @@
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import { useSelector, useDispatch } from "react-redux";
+import { Link, Route, Switch, useLocation } from "react-router-dom";
 import styles from "../styles/topbar.module.css";
 import Box from "@mui/material/Box";
-// import * as React from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
-import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
-import React, { useState, useEffect } from "react";
-import { Link, Route, Switch, useLocation } from "react-router-dom";
-import Index from "../pages/index";
+
 export default function Topbar() {
   const router = useRouter();
   const [value, setValue] = useState(0);
-  const [path, setPath] = useState('/');
+  const [path, setPath] = useState("/");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  // useEffect(() => {
-  //   //Check username yet?
-  //   setPath(router.pathname);
-  // }, [router.pathname]);
-
+  const getGameData = useSelector((state) => state.game_selecting.game_info);
   const getUsrname = useSelector((state) => state.get_username.username);
 
   return (
-    <Box     
+    <Box
       sx={{
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
         bgcolor: "#2D333B",
-        position:"fixed",
-        width:"100vw",
-        top:0,
-        maxHeight:"10%",
-        zIndex:999
+        position: "fixed",
+        width: "100vw",
+        top: 0,
+        maxHeight: "10%",
+        zIndex: 999,
       }}
     >
       {/* Show USERNAME */}
@@ -74,7 +69,11 @@ export default function Topbar() {
           {...changeindex(0)}
           className={path == "/" ? styles.blueicon : styles.whiteicon}
           onClick={() => {
-            router.push("/");
+            if (getGameData) {
+              router.push("/SelectRoompage");
+            } else {
+              router.push("/");
+            }
           }}
         />
         {/* Chat Tab */}
