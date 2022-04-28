@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
+import GameAction from "../store/gameAction";
+
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -8,9 +10,8 @@ import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { CardActionArea } from "@mui/material";
-// import Button from "@mui/material/Button";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-
+import Button from "@mui/material/Button";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
@@ -18,11 +19,10 @@ import AddIcon from "@mui/icons-material/Add";
 
 export default function SelectRoompage() {
   const router = useRouter();
-  const {
-    query: { data },
-  } = router;
-  const props = { data };
-  const [gameData, setGameData] = useState(JSON.parse(props.data));
+  const dispatch = useDispatch();
+  const [gameData, setGameData] = useState(
+    useSelector((state) => state.game_selecting.game_info)
+  );
 
   //Mock up rooms data
   const obj = [
@@ -68,13 +68,6 @@ export default function SelectRoompage() {
     },
   ];
 
-  // const AlertBox = (
-  //   <Stack sx={{ width: "100%" }} spacing={2}>
-  //     <Alert severity="error">{`Room "${data.roomName}" is full.`}</Alert>
-  //     <Alert severity="success">{`Connecting ${data.roomName} . . `}</Alert>
-  //   </Stack>
-  // );
-
   const RoomsCard = obj.map((data, index) => {
     const checkConnectRoom = (data) => {
       if (data.roomUser.length === data.roomSize) {
@@ -100,10 +93,6 @@ export default function SelectRoompage() {
             border: 1,
             borderColor: "#444C56",
           }}
-          // onClick={() => {
-          //   router.push("");
-          // }}
-
           //Check can join room OR room full
           onClick={() => checkConnectRoom(data)}
         >
@@ -169,6 +158,21 @@ export default function SelectRoompage() {
 
   return (
     <Container maxWidth="lg" sx={{ my: "10vh" }}>
+      <div style={{ textAlign: "center", marginBottom: "3vh" }}>
+        <Button
+          sx={{ bgcolor: "#7EE0FF", color: "black" }}
+          variant="contained"
+          onClick={() => {
+            dispatch(GameAction(""));
+            router.push({
+              pathname: "/",
+            });
+          }}
+        >
+          SEE All GAME
+        </Button>
+      </div>
+
       {/* Contents Game detail and Create new room*/}
       <Grid
         container
@@ -178,17 +182,7 @@ export default function SelectRoompage() {
       >
         {/*Game Description */}
         <Grid item xs={12} sm={6} md={6} lg={6} sx={{ borderRadius: 4 }}>
-          <Grid
-            container
-            sx={
-              {
-                // borderRadius: 3,
-                // border: 1,
-                // borderColor: "#444C56",
-              }
-            }
-            columnSpacing={{ xs: 1, sm: 1, md: 1, lg: 1 }}
-          >
+          <Grid container columnSpacing={{ xs: 1, sm: 1, md: 1, lg: 1 }}>
             {/* Picture game banner */}
             <Grid item xs={6} sm={5} md={4} lg={4} sx={{}}>
               <img
@@ -229,7 +223,6 @@ export default function SelectRoompage() {
                   color: "white",
                   textAlign: "center",
                   py: "7vh",
-                  // py: 10
                 }}
               >
                 <AddIcon sx={{ fontSize: 50, color: "#347D39" }} />

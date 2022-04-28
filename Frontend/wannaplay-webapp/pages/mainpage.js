@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
 import ModalUsername from "../components/modalUsername";
+import styles from "../styles/loading.module.css";
 
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -15,6 +17,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import GameAction from "../store/gameAction";
 
 export default function Home() {
   const [inputGameName, setInputGameName] = useState("");
@@ -23,6 +26,7 @@ export default function Home() {
   const [games, setGames] = useState([]);
   const [category, setCategory] = useState("");
   const router = useRouter();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getGames();
@@ -96,7 +100,7 @@ export default function Home() {
   const handleSearchGame = (event) => {
     setInputGameName(event.target.value);
   };
-
+  GameAction;
   const handleChangeCategory = (event) => {
     setCategory(event.target.value);
   };
@@ -107,9 +111,9 @@ export default function Home() {
       <Card
         sx={{ maxWidth: "100%", borderRadius: 3, borderColor: "primary.main" }}
         onClick={() => {
+          dispatch(GameAction(data));
           router.push({
             pathname: "/SelectRoompage",
-            query: { data: JSON.stringify(data)}
           });
         }}
       >
@@ -126,7 +130,6 @@ export default function Home() {
             </Typography>
           </CardContent>
         </CardActionArea>
-        {/* </Link> */}
       </Card>
     </Grid>
   ));
@@ -137,7 +140,6 @@ export default function Home() {
       <ModalUsername />
 
       {/* Search bar*/}
-      {/* <form> */}
       <Box
         display="flex"
         flexDirection="row"
@@ -188,7 +190,6 @@ export default function Home() {
           </Select>
         </FormControl>
       </Box>
-      {/* </form> */}
 
       {/* Card: Show game list*/}
       <Box
@@ -209,9 +210,10 @@ export default function Home() {
               alignItems: "center",
               justifyContent: "center",
               width: "100%",
+              marginTop: 100
             }}
           >
-            <h1>Loading . . .</h1>
+            <div class={styles.lds_roller}><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
           </div>
         ) : (
           CardsGame
