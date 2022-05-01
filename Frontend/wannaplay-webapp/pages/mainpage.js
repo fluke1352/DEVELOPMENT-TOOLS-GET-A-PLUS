@@ -213,7 +213,7 @@ export default function Home() {
               marginTop: 100,
             }}
           >
-            <div class={styles.lds_roller}>
+            <div className={styles.lds_roller}>
               <div></div>
               <div></div>
               <div></div>
