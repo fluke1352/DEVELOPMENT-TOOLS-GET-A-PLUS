@@ -5,7 +5,7 @@ const initialState = {
 const inputReducer = (state = initialState, action) => {
   switch (action.type) {
     case "INPUT_USERNAME":
-        return {username: action.data};
+      return { username: action.data };
     default:
       return state;
   }

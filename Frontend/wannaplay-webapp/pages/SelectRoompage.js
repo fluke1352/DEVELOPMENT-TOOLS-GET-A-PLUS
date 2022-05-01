@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useRouter } from "next/router";
+import GameAction from "../store/gameAction";
 
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -8,22 +10,18 @@ import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { CardActionArea } from "@mui/material";
-// import Button from "@mui/material/Button";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-
-
+import Button from "@mui/material/Button";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import AddIcon from "@mui/icons-material/Add";
 
-export default function SelectRoompage(query) {
-  const [gameName, setGameName] = useState("Valorant");
-  const [gameDescript, setGameDescript] = useState(
-    "Blend your style and experience on a global, competitive stage. You have 13 rounds to attack and defend your side using sharp gunplay and tactical abilities. And, with one life."
-  );
-  const [gameBanner, setGameBanner] = useState(
-    "https://via.placeholder.com/180x250"
+export default function SelectRoompage() {
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const [gameData, setGameData] = useState(
+    useSelector((state) => state.game_selecting.game_info)
   );
 
   //Mock up rooms data
@@ -70,13 +68,6 @@ export default function SelectRoompage(query) {
     },
   ];
 
-  // const AlertBox = (
-  //   <Stack sx={{ width: "100%" }} spacing={2}>
-  //     <Alert severity="error">{`Room "${data.roomName}" is full.`}</Alert>
-  //     <Alert severity="success">{`Connecting ${data.roomName} . . `}</Alert>
-  //   </Stack>
-  // );
-
   const RoomsCard = obj.map((data, index) => {
     const checkConnectRoom = (data) => {
       if (data.roomUser.length === data.roomSize) {
@@ -102,10 +93,6 @@ export default function SelectRoompage(query) {
             border: 1,
             borderColor: "#444C56",
           }}
-          // onClick={() => {
-          //   router.push("");
-          // }}
-
           //Check can join room OR room full
           onClick={() => checkConnectRoom(data)}
         >
@@ -171,6 +158,21 @@ export default function SelectRoompage(query) {
 
   return (
     <Container maxWidth="lg" sx={{ my: "10vh" }}>
+      <div style={{ textAlign: "center", marginBottom: "3vh" }}>
+        <Button
+          sx={{ bgcolor: "#7EE0FF", color: "black" }}
+          variant="contained"
+          onClick={() => {
+            dispatch(GameAction(""));
+            router.push({
+              pathname: "/",
+            });
+          }}
+        >
+          SEE All GAME
+        </Button>
+      </div>
+
       {/* Contents Game detail and Create new room*/}
       <Grid
         container
@@ -180,37 +182,26 @@ export default function SelectRoompage(query) {
       >
         {/*Game Description */}
         <Grid item xs={12} sm={6} md={6} lg={6} sx={{ borderRadius: 4 }}>
-          <Grid
-            container
-            sx={
-              {
-                // borderRadius: 3,
-                // border: 1,
-                // borderColor: "#444C56",
-              }
-            }
-            columnSpacing={{ xs: 1, sm: 1, md: 1, lg: 1 }}
-          >
+          <Grid container columnSpacing={{ xs: 1, sm: 1, md: 1, lg: 1 }}>
             {/* Picture game banner */}
             <Grid item xs={6} sm={5} md={4} lg={4} sx={{}}>
               <img
-                src={gameBanner}
-                srcSet={gameBanner}
+                src={gameData.img_url}
+                srcSet={gameData.img_url}
                 // alt={item.title}
                 loading="lazy"
                 height="270vh"
                 width="100%"
-                objectFit="cover"
+                // objectFit="cover"
               />
             </Grid>
             {/* Game name and Description */}
-            {console.log(query.gameName + "!!!!")}
             <Grid item xs={6} sm={7} md={8} lg={8} my={2}>
               <Typography variant="h5" mb={2} fontWeight={"20px"}>
-                {gameName}
+                {gameData.name}
               </Typography>
               <Typography variant="p" fontSize={"1rem"}>
-                {gameDescript}
+                {gameData.description}
               </Typography>
             </Grid>
           </Grid>
@@ -232,7 +223,6 @@ export default function SelectRoompage(query) {
                   color: "white",
                   textAlign: "center",
                   py: "7vh",
-                  // py: 10
                 }}
               >
                 <AddIcon sx={{ fontSize: 50, color: "#347D39" }} />

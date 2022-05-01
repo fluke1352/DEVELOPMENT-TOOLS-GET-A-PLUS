@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
 import ModalUsername from "../components/modalUsername";
+import styles from "../styles/loading.module.css";
 
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -15,6 +17,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import GameAction from "../store/gameAction";
 
 export default function Home() {
   const [inputGameName, setInputGameName] = useState("");
@@ -23,6 +26,7 @@ export default function Home() {
   const [games, setGames] = useState([]);
   const [category, setCategory] = useState("");
   const router = useRouter();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getGames();
@@ -44,14 +48,12 @@ export default function Home() {
         inputGameName.length < 1 &&
         category !== "All"
       ) {
-        console.log("filter category");
         setGames(filterByCategory());
         setIsLoading(false);
       } else if (inputGameName.length < 1 && gameData.length > 0) {
         setGames(gameData);
         setIsLoading(false);
       } else if (inputGameName.length > 0 && gameData.length > 0) {
-        console.log("serching");
         setCategory("All");
         setGames(filterByName(filterByCategory()));
         setIsLoading(false);
@@ -98,9 +100,9 @@ export default function Home() {
   const handleSearchGame = (event) => {
     setInputGameName(event.target.value);
   };
-
   const handleChangeCategory = (event) => {
     setCategory(event.target.value);
+    setInputGameName("");
   };
 
   //Cards of game that availability
@@ -109,20 +111,14 @@ export default function Home() {
       <Card
         sx={{ maxWidth: "100%", borderRadius: 3, borderColor: "primary.main" }}
         onClick={() => {
-          // router.push("/SelectRoompage.js");
+          dispatch(GameAction(data));
           router.push({
             pathname: "/SelectRoompage",
-            // query: { gameName: gamename },
           });
         }}
       >
         <CardActionArea>
-          <CardMedia
-            component="img"
-            height="290px"
-            
-            image={data.img_url}
-          />
+          <CardMedia component="img" height="290px" image={data.img_url} />
           <CardContent sx={{ backgroundColor: "#2D333B" }}>
             <Typography
               variant="h7"
@@ -134,7 +130,6 @@ export default function Home() {
             </Typography>
           </CardContent>
         </CardActionArea>
-        {/* </Link> */}
       </Card>
     </Grid>
   ));
@@ -145,7 +140,6 @@ export default function Home() {
       <ModalUsername />
 
       {/* Search bar*/}
-      {/* <form> */}
       <Box
         display="flex"
         flexDirection="row"
@@ -196,7 +190,6 @@ export default function Home() {
           </Select>
         </FormControl>
       </Box>
-      {/* </form> */}
 
       {/* Card: Show game list*/}
       <Box
@@ -211,11 +204,26 @@ export default function Home() {
       </Box>
       <Grid container spacing={4}>
         {isLoading ? (
-            <div
-              style={{display:"flex",alignItems:"center",justifyContent:"center", width:"100%"}}
-            >
-              <h1>Loading . . .</h1>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "100%",
+              marginTop: 100,
+            }}
+          >
+            <div className={styles.lds_roller}>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
             </div>
+          </div>
         ) : (
           CardsGame
         )}
