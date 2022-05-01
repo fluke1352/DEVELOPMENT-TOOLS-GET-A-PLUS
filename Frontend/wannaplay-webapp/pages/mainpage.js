@@ -100,9 +100,9 @@ export default function Home() {
   const handleSearchGame = (event) => {
     setInputGameName(event.target.value);
   };
-  GameAction;
   const handleChangeCategory = (event) => {
     setCategory(event.target.value);
+    setInputGameName("");
   };
 
   //Cards of game that availability
@@ -210,10 +210,19 @@ export default function Home() {
               alignItems: "center",
               justifyContent: "center",
               width: "100%",
-              marginTop: 100
+              marginTop: 100,
             }}
           >
-            <div class={styles.lds_roller}><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+            <div class={styles.lds_roller}>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
           </div>
         ) : (
           CardsGame
