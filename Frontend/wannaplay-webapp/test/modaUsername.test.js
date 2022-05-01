@@ -1,15 +1,12 @@
 import React from "react";
-import { Router } from "react-router-dom";
-import { createMemoryHistory } from "history";
-import { render, fireEvent, cleanup, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { useSelector } from "react-redux";
 import "@testing-library/jest-dom";
+import { render, fireEvent, cleanup, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { createStore, combineReducers } from "redux";
 import inputReducer from "../store/usernameReducer";
+import gameReducer from "../store/gameReducer";
 
-import MockUI from "./mockUI";
 import ModalUsername from "../components/modalUsername";
 import Topbar from "../components/topbar";
 import Index from "../pages/index";
@@ -20,6 +17,7 @@ afterEach(cleanup);
 
 const rootReducer = combineReducers({
   get_username: inputReducer,
+  game_selecting: gameReducer,
 });
 
 function renderWithRedux(
